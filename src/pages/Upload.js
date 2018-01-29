@@ -74,7 +74,8 @@ class Home extends Component {
     const formData = new FormData(this.refs.myForm)
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*'
       }
     }
 
@@ -128,39 +129,20 @@ class Home extends Component {
         <ol class="breadcrumb">
           <li class="breadcrumb-item active">Upload</li>
         </ol>
-
         <ShowUpload>
-          <h1 style={this.state.results ? {marginTop: 100} : {marginTop: 200}}>Upload Your Data Here !</h1>
-          {/* <ShowScore><p class="score">0.92</p><p class="text"></p></ShowScore> */}
+          <h1 style={this.state.results ? { marginTop: 100 } : { marginTop: 200 }}>Upload Your Data Here !</h1>
           {this.state.results ? <ShowScore><p class="score">{this.state.results ? this.state.results.f1.toFixed(2) : ''}</p><p class="text">{this.state.results ? 'F1' : ''}</p></ShowScore> : ''}
           {this.state.results ? <ShowScore><p class="score">{this.state.results ? this.state.results.accuracy.toFixed(2) : ''}</p><p class="text">{this.state.results ? 'Accuracy' : ''}</p></ShowScore> : ''}
           {this.state.results ? <ShowScore><p class="score">{this.state.results ? this.state.results.recall.toFixed(2) : ''}</p><p class="text">{this.state.results ? 'Recall' : ''}</p></ShowScore> : ''}
           {this.state.results ? <ShowScore><p class="score">{this.state.results ? this.state.results.modelName : ''}</p><p class="text">{this.state.results ? 'Model Name' : ''}</p></ShowScore> : ''}
-          {/* {this.state.results ? <ShowScore><p class="score">{this.state.results ? this.state.results.features : ''}</p><p class="text">{this.state.results ? 'Features' : ''}</p></ShowScore> : ''} */}
           <form ref="myForm">
             <input ref="myFile" name="xxx" id="file" onChange={() => this.handleFileChange()} type="file" style={{ display: 'none' }} />
             <label for="file"><span style={{ marginTop: 100 }}>Choose a file</span></label> {this.state.filename}
           </form>
-          {this.state.results ? <button onClick={() => this.handleModelCancle()} className="button btn-danger">Cancle</button>: ''}
-          {this.state.results ? <button onClick={() => this.handleModelSave()} className="button btn-primary">Save</button>: ''}
-
+          {this.state.results ? <button onClick={() => this.handleModelCancle()} className="button btn-danger">Cancle</button> : ''}
+          {this.state.results ? <button onClick={() => this.handleModelSave()} className="button btn-primary">Save</button> : ''}
           {this.state.filename ? <button onClick={() => this.handleFileUpload()} className="button btn-success">{this.state.uploadStatus}</button> : ''}
         </ShowUpload>
-
-        {/* <p> {this.state.filename} </p>
-        <form ref="myForm">
-          <input ref="myFile" name="xxx" onChange={() => this.handleFileChange()} type="file" />
-        </form>
-        <button onClick={() => this.handleFileUpload()} className="button btn-success">{this.state.uploadStatus}</button>
-        <p>{this.state.results ? 'F1: ' : ''} {this.state.results ? this.state.results.f1 : ''}</p>
-        <p>{this.state.results ? 'Accuracy: ' : ''} {this.state.results ? this.state.results.accuracy : ''}</p>
-        <p>{this.state.results ? 'Features: ' : ''} {this.state.results ? this.state.results.features : ''}</p>
-        <p>{this.state.results ? 'Model Name: ' : ''} {this.state.results ? this.state.results.modelName : ''}</p>
-        <p>{this.state.results ? 'Recall: ' : ''} {this.state.results ? this.state.results.recall : ''}</p>
-
-        {this.state.results ? <button onClick={() => this.handleModelCancle()} className="button btn-danger">Cancle</button>: ''}
-        {this.state.results ? <button onClick={() => this.handleModelSave()} className="button btn-primary">Save</button>: ''} */}
-
       </div>
     )
   }

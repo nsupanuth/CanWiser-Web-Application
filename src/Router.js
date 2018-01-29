@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import Navbar from './Navbar'
 import Home from './pages/Home'
 import Upload from './pages/Upload'
+import Prediction from './pages/Prediction'
+
 
 const Wrapper = styled.div`
   .container-fluid {
@@ -23,6 +25,7 @@ export default class Routes extends Component {
               <div>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/upload" component={Upload} />
+                <Route exact path="/prediction" component={Prediction} />
               </div>
             </Router>
           </div>
