@@ -139,8 +139,8 @@ class Home extends Component {
             <input ref="myFile" name="xxx" id="file" onChange={() => this.handleFileChange()} type="file" style={{ display: 'none' }} />
             <label for="file"><span style={{ marginTop: 100 }}>Choose a file</span></label> {this.state.filename}
           </form>
-          {this.state.results ? <button onClick={() => this.handleModelCancle()} className="button btn-danger">Cancle</button> : ''}
-          {this.state.results ? <button onClick={() => this.handleModelSave()} className="button btn-primary">Save</button> : ''}
+          {/* {this.state.results ? <button onClick={() => this.handleModelCancle()} className="button btn-danger">Cancle</button> : ''}
+          {this.state.results ? <button onClick={() => this.handleModelSave()} className="button btn-primary">Save</button> : ''} */}
           {this.state.filename ? <button onClick={() => this.handleFileUpload()} className="button btn-success">{this.state.uploadStatus}</button> : ''}
         </ShowUpload>
       </div>
