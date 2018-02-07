@@ -80,10 +80,12 @@ class Home extends Component {
     }
 
     this.setState({
-      uploadStatus: 'Uploading'
+      uploadStatus: 'Uploading...'
     })
 
-    axios.post('http://13.229.135.29:8080/retrain/upload', formData, config)
+    axios.post('http://localhost:3000/retrain/upload', formData, config,{
+      headers: {"Access-Control-Allow-Origin": "*"}
+    })
       .then(res => {
         console.log(res)
         this.setState({
@@ -95,11 +97,16 @@ class Home extends Component {
   }
 
   handleModelCancle() {
-    axios.post('http://13.229.135.29:8080/retrain/upload/cancel', {
+    axios.post('http://localhost:3000/retrain/upload/cancel', {
       pathName: this.state.results.modelPath
     })
-      .then(function (response) {
-        console.log(response);
+      .then(res => {
+        console.log(res)
+        console.log("Test Result")
+        console.log(this.state.results)
+        this.setState({
+          results : ''
+        })
       })
       .catch(function (error) {
         console.log(error);
@@ -107,15 +114,18 @@ class Home extends Component {
   }
 
   handleModelSave() {
-    axios.post('http://13.229.135.29:8080/retrain/upload/confirm', {
+    axios.post('http://localhost:3000/retrain/upload/confirm', {
       accuracy: this.state.results.accuracy,
       recall: this.state.results.recall,
       f1: this.state.results.f1,
       model_name: this.state.results.modelName,
       model_path: this.state.results.modelPath
     })
-      .then(function (response) {
-        console.log(response);
+      .then(res => {
+        console.log(res);
+        this.setState({
+          results : ''
+        })
       })
       .catch(function (error) {
         console.log(error);
@@ -126,23 +136,24 @@ class Home extends Component {
 
     return (
       <div>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active">Upload</li>
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item active">Upload</li>
         </ol>
         <ShowUpload>
           <h1 style={this.state.results ? { marginTop: 100 } : { marginTop: 200 }}>Upload Your Data Here !</h1>
-          {this.state.results ? <ShowScore><p class="score">{this.state.results ? this.state.results.f1.toFixed(2) : ''}</p><p class="text">{this.state.results ? 'F1' : ''}</p></ShowScore> : ''}
-          {this.state.results ? <ShowScore><p class="score">{this.state.results ? this.state.results.accuracy.toFixed(2) : ''}</p><p class="text">{this.state.results ? 'Accuracy' : ''}</p></ShowScore> : ''}
-          {this.state.results ? <ShowScore><p class="score">{this.state.results ? this.state.results.recall.toFixed(2) : ''}</p><p class="text">{this.state.results ? 'Recall' : ''}</p></ShowScore> : ''}
-          {this.state.results ? <ShowScore><p class="score">{this.state.results ? this.state.results.modelName : ''}</p><p class="text">{this.state.results ? 'Model Name' : ''}</p></ShowScore> : ''}
+          {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.f1.toFixed(2) : ''}</p><p className="text">{this.state.results ? 'F1' : ''}</p></ShowScore> : ''}
+          {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.accuracy.toFixed(2) : ''}</p><p className="text">{this.state.results ? 'Accuracy' : ''}</p></ShowScore> : ''}
+          {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.recall.toFixed(2) : ''}</p><p className="text">{this.state.results ? 'Recall' : ''}</p></ShowScore> : ''}
+          {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.modelName : ''}</p><p className="text">{this.state.results ? 'Model Name' : ''}</p></ShowScore> : ''}
           <form ref="myForm">
             <input ref="myFile" name="xxx" id="file" onChange={() => this.handleFileChange()} type="file" style={{ display: 'none' }} />
-            <label for="file"><span style={{ marginTop: 100 }}>Choose a file</span></label> {this.state.filename}
+            <label htmlFor="file"><span style={{ marginTop: 100 }}>Choose a file</span></label> {this.state.filename}
           </form>
-          {/* {this.state.results ? <button onClick={() => this.handleModelCancle()} className="button btn-danger">Cancle</button> : ''}
-          {this.state.results ? <button onClick={() => this.handleModelSave()} className="button btn-primary">Save</button> : ''} */}
+          {this.state.results ? <button type = "button" style = {{margin : '20px'}} onClick={() => this.handleModelCancle()} className="btn btn-danger">Cancle</button> : ''}
+          {this.state.results ? <button type = "button" onClick={() => this.handleModelSave()} className="btn btn-primary">Save</button> : ''} 
           {this.state.filename ? <button onClick={() => this.handleFileUpload()} className="button btn-success">{this.state.uploadStatus}</button> : ''}
         </ShowUpload>
+
       </div>
     )
   }

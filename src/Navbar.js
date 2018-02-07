@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom' 
 import styled from 'styled-components';
 
 import Profile from './img/profile.jpg';
@@ -48,50 +49,50 @@ class Navbar extends Component {
   render() {
     return (
       <Nav>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-          <a class="navbar-brand" href="/">CanWiser</a>
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+          <a className="navbar-brand" href="/">CanWiser</a>
+          <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <div className="collapse navbar-collapse" id="navbarResponsive">
+            <ul className="navbar-nav navbar-sidenav" id="exampleAccordion">
 
-            <li class="nav-item profile-img" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <img class="rounded-circle" alt="profile" src={Profile} />
+            <li className="nav-item profile-img" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <img className="rounded-circle" alt="profile" src={Profile} />
             </li>
-              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" href="/">
-                  <i class="fa fa-fw fa-dashboard"></i>
-                  <span class="nav-link-text">Dashboard</span>
+              <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <Link className="nav-link" href="/dashboard">
+                  <i className="fa fa-fw fa-dashboard"></i>
+                  <span className="nav-link-text">Dashboard</span>
+                </Link>
+              </li>
+              <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                <Link className="nav-link" href="/upload">
+                  <i className="fa fa-fw fa-area-chart"></i>
+                  <span className="nav-link-text">Upload</span>
+                </Link>
+              </li>
+              <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                <a className="nav-link" href="/prediction">
+                  <i className="fa fa-fw fa-table"></i>
+                  <span className="nav-link-text">Prediction</span>
                 </a>
               </li>
-              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                <a class="nav-link" href="/upload">
-                  <i class="fa fa-fw fa-area-chart"></i>
-                  <span class="nav-link-text">Upload</span>
-                </a>
-              </li>
-              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                <a class="nav-link" href="/prediction">
-                  <i class="fa fa-fw fa-table"></i>
-                  <span class="nav-link-text">Prediction</span>
-                </a>
-              </li>
-              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                <a class="nav-link" href="#">
-                  <i class="fa fa-fw fa-link"></i>
-                  <span class="nav-link-text">Link</span>
-                </a>
-              </li>
-            </ul>
-            <ul class="navbar-nav sidenav-toggler">
-              <li class="nav-item">
-                <a class="nav-link text-center" id="sidenavToggler">
-                  <i class="fa fa-fw fa-angle-left"></i>
+              <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+                <a className="nav-link" href="#">
+                  <i className="fa fa-fw fa-link"></i>
+                  <span className="nav-link-text">Link</span>
                 </a>
               </li>
             </ul>
-            <ul class="navbar-nav ml-auto">
+            <ul className="navbar-nav sidenav-toggler">
+              <li className="nav-item">
+                <a className="nav-link text-center" id="sidenavToggler">
+                  <i className="fa fa-fw fa-angle-left"></i>
+                </a>
+              </li>
+            </ul>
+            <ul className="navbar-nav ml-auto">
               {/* <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-fw fa-envelope"></i>
@@ -169,9 +170,9 @@ class Navbar extends Component {
                 <a class="dropdown-item small" href="#">View all alerts</a>
               </div>
             </li> */}
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                  <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+              <li className="nav-item">
+                <a className="nav-link" data-toggle="modal" data-target="#exampleModal">
+                  <i className="fa fa-fw fa-sign-out"></i>Logout</a>
               </li>
             </ul>
           </div>

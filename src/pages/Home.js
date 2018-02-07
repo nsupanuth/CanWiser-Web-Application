@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import { Area } from '../charts/Charts'
 
@@ -28,8 +29,17 @@ import { Area } from '../charts/Charts'
 //   ]
 // }
 
+const data = [
+  {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
+  {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
+  {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
+  {name: 'Page D', uv: 2780, pv: 3908, amt: 2000}
+];
+
 class Home extends Component {
+
   render() {
+
     return (
       <div>
         <ol class="breadcrumb">
@@ -39,72 +49,22 @@ class Home extends Component {
           <li class="breadcrumb-item active">My Dashboard</li>
         </ol>
 
-        <div class="row">
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-primary o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fa fa-fw fa-comments"></i>
-                </div>
-                <div class="mr-5">26 New Messages!</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                  <i class="fa fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-warning o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fa fa-fw fa-list"></i>
-                </div>
-                <div class="mr-5">11 New Tasks!</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                  <i class="fa fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-success o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fa fa-fw fa-shopping-cart"></i>
-                </div>
-                <div class="mr-5">123 New Orders!</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                  <i class="fa fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-danger o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fa fa-fw fa-support"></i>
-                </div>
-                <div class="mr-5">13 New Tickets!</div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
-                <span class="float-right">
-                  <i class="fa fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
+      	
+        <div className="card w-75">
+           <div class="card-header">
+            <i class="fa fa-area-chart"></i> Bar Chart Example</div>
+          <BarChart width={600} height={300} data={data}
+            margin={{top: 20, right: 30, left: 20, bottom: 5}}>
+            <XAxis dataKey="name"/>
+            <YAxis/>
+            <CartesianGrid strokeDasharray="3 3"/>
+            <Tooltip/>
+            <Legend />
+            <Bar dataKey="amt" stackId="a" fill="#8884d8" />
+            <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
+          </BarChart>
         </div>
+        
 
         <div class="card mb-3">
           <div class="card-header">
@@ -116,7 +76,7 @@ class Home extends Component {
         </div>
 
 
-      </div >
+      </div>
     )
   }
 }

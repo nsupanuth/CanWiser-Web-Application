@@ -22,42 +22,62 @@ class Prediction extends Component {
     age: '',
     height: '',
     weight: '',
-    phy6_2_5_vs1: 0,
-    phy6_2_12_vs1: 0,
-    phy9_3_6_vs1: 0,
-    phy2_5_vs1: 0,
-    phy8_1_3_vs1: 0,
-    phy5_5_vs1: 0,
+    phy6_2_5_vs1: 1,
+    phy6_2_12_vs1: 1,
+    phy9_3_6_vs1: 1,
+    phy2_5_vs1: 1,
+    phy8_1_3_vs1: 1,
+    phy5_5_vs1: 1,
     alkPhosphatase: '',
+    gammaGT : '',
     ALT: '',
     CEA: '',
-    CA199: ''
+    CA199: '',
+    proba : 0
   }
 
   updateValue = (e) => {
     let value = e.target.value
-    if(e.target.id == 'gender'){
-      if(e.target.value == 'Male') value = 0
+    if(e.target.id === 'gender'){
+      if(e.target.value === 'Male') value = 0
       else value = 1
     }
+
+    if(e.target.id === 'phy6_2_5_vs1' || e.target.id === 'phy6_2_12_vs1' || e.target.id === 'phy9_3_6_vs1' ||
+       e.target.id === 'phy2_5_vs1' || e.target.id === 'phy8_1_3_vs1' || e.target.id === 'phy5_5_vs1' )
+    { 
+      e.target.value === 'เคย' ? value = 1 : value = 0;
+    }
+
     this.setState({
       [e.target.id]: parseInt(value)
     })
   }
 
-  handleFileUpload() {
-    const formData = new FormData(this.refs.myForm)
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Access-Control-Allow-Origin': '*'
-      }
-    }
+  handlePostForRecommend(){
+    
+    const {patientNo,gender,age,height,weight,
+      phy6_2_5_vs1,phy6_2_12_vs1,phy9_3_6_vs1,phy2_5_vs1,phy8_1_3_vs1,phy5_5_vs1,
+      alkPhosphatase,gammaGT,ALT,CEA,CA199} = this.state
 
-    axios.post('http://13.229.135.29:8080/retrain/upload', formData, config)
-      .then(res => {
-        console.log(res)
+    axios.post('http://localhost:3000/predict/test/cholan', {
+      patientNo,gender,age,height,weight,
+      phy6_2_5_vs1,phy6_2_12_vs1,phy9_3_6_vs1,phy2_5_vs1,phy8_1_3_vs1,phy5_5_vs1,
+      alkPhosphatase,gammaGT,ALT,CEA,CA199
+    })
+    .then(res => {
+      console.log("Test insert value")
+      console.log(res);
+      console.log(res.data.results);
+      this.setState({
+        proba : res.data.results.proba
       })
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
   }
 
   render() {
@@ -92,43 +112,43 @@ class Prediction extends Component {
           <div class="form-group">
             <label for="exampleFormControlSelect1">phy6_2_5_vs1</label>
             <select class="form-control" id="phy6_2_5_vs1" onChange={this.updateValue}>
-              <option>0</option>
-              <option>1</option>
+              <option>เคย</option>
+              <option>ไม่เคย</option>
             </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">phy6_2_12_vs1</label>
             <select class="form-control" id="phy6_2_12_vs1" onChange={this.updateValue}>
-              <option>0</option>
-              <option>1</option>
+              <option>เคย</option>
+              <option>ไม่เคย</option>
             </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">phy9_3_6_vs1</label>
             <select class="form-control" id="phy9_3_6_vs1" onChange={this.updateValue}>
-              <option>0</option>
-              <option>1</option>
+              <option>เคย</option>
+              <option>ไม่เคย</option>
             </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">phy2_5_vs1</label>
             <select class="form-control" id="phy2_5_vs1" onChange={this.updateValue}>
-              <option>0</option>
-              <option>1</option>
+              <option>เคย</option>
+              <option>ไม่เคย</option>
             </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">phy8_1_3_vs1</label>
             <select class="form-control" id="phy8_1_3_vs1" onChange={this.updateValue}>
-              <option>0</option>
-              <option>1</option>
+              <option>เคย</option>
+              <option>ไม่เคย</option>
             </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">phy5_5_vs1</label>
             <select class="form-control" id="phy5_5_vs1" onChange={this.updateValue}>
-              <option>0</option>
-              <option>1</option>
+              <option>เคย</option>
+              <option>ไม่เคย</option>
             </select>
           </div>
           <div class="form-group">
@@ -151,8 +171,37 @@ class Prediction extends Component {
             <label for="exampleFormControlSelect1">CA199</label>
             <input type="text" class="form-control" id="CA199" placeholder="Number Only" onChange={this.updateValue}/>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+
+          <button data-toggle="modal" data-target="#myModal" 
+                  onClick={() => this.handlePostForRecommend()}
+                  type="button" 
+                  class="btn btn-primary">
+                  Submit
+          </button>
+          
         </form>
+
+        {/* Modal */}
+        <div className="modal fade" id="myModal" role="dialog">
+        <div className="modal-dialog modal-lg">
+        
+          <div className="modal-content">
+            <div className="modal-header">
+              <h4>Recommendation</h4>
+              <button type="button" className="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div className="modal-body">
+              <p>  Probaility : {this.state.proba*100}%</p>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+
       </Wrapper>
     )
   }
