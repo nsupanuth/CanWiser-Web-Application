@@ -61,29 +61,24 @@ class Navbar extends Component {
                 <img className="rounded-circle" alt="profile" src={Profile} />
             </li>
               <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <Link className="nav-link" href="/dashboard">
+                <Link className="nav-link" to="/dashboard">
                   <i className="fa fa-fw fa-dashboard"></i>
                   <span className="nav-link-text">Dashboard</span>
                 </Link>
               </li>
               <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                <Link className="nav-link" href="/upload">
+                <Link className="nav-link" to="/upload">
                   <i className="fa fa-fw fa-area-chart"></i>
                   <span className="nav-link-text">Upload</span>
                 </Link>
               </li>
               <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                <a className="nav-link" href="/prediction">
+                <Link className="nav-link" to="/prediction">
                   <i className="fa fa-fw fa-table"></i>
                   <span className="nav-link-text">Prediction</span>
-                </a>
+                </Link>
               </li>
-              <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                <a className="nav-link" href="#">
-                  <i className="fa fa-fw fa-link"></i>
-                  <span className="nav-link-text">Link</span>
-                </a>
-              </li>
+              
             </ul>
             <ul className="navbar-nav sidenav-toggler">
               <li className="nav-item">
