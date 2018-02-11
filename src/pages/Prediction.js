@@ -14,6 +14,12 @@ const Wrapper = styled.div`
   }
 `
 
+const RecommendStyle = styled.div`
+
+  font-family: 'Kanit', sans-serif;
+  font-size : 45px;
+`
+
 class Prediction extends Component {
 
   state = {
@@ -82,6 +88,9 @@ class Prediction extends Component {
 
   render() {
     console.log(this.state)
+
+    var recommends = ['งดสูบบุหรี่', 'กินอาหารดิบๆให้น้อยลง', 'พักผ่อนให้เพียงพอ'];
+
     return (
       <Wrapper>
         <h1 style={{ marginTop: 100 }}>Fill Your Data Here !</h1>
@@ -118,10 +127,10 @@ class Prediction extends Component {
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">phy6_2_12_vs1</label>
-            <select class="form-control" id="phy6_2_12_vs1" onChange={this.updateValue}>
-              <option>เคย</option>
-              <option>ไม่เคย</option>
-            </select>
+              <select class="form-control" id="phy6_2_12_vs1" onChange={this.updateValue}>
+                <option>เคย</option>
+                <option>ไม่เคย</option>
+              </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">phy9_3_6_vs1</label>
@@ -190,11 +199,24 @@ class Prediction extends Component {
               <h4>Recommendation</h4>
               <button type="button" className="close" data-dismiss="modal">&times;</button>
             </div>
-            <div className="modal-body">
-              <p>  Probaility : {this.state.proba*100}%</p>
-            </div>
+            
+            <RecommendStyle>
+
+              <div className="modal-body">
+                <p> <b>โอกาสเป็นมะเร็งท่อน้ำดี : {this.state.proba*100}% </b></p>
+
+                <ul>
+                  {recommends.map(function(recommend, index){
+                      return <div key={ index }> <i style={{color : '#dfe81f'}} className="fa fa-star"></i> {recommend} </div>
+                    })}
+                </ul>
+
+              </div>
+
+            </RecommendStyle>
+
             <div className="modal-footer">
-              <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
           </div>
           

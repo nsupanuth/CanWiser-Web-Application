@@ -70,12 +70,12 @@ class Home extends Component {
     console.log(this.refs)
   }
 
-  handleFileUpload() {
+handleFileUpload() {
+
     const formData = new FormData(this.refs.myForm)
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data',
-        'Access-Control-Allow-Origin': '*'
+        'Content-Type': 'multipart/form-data'
       }
     }
 
@@ -83,9 +83,7 @@ class Home extends Component {
       uploadStatus: 'Uploading...'
     })
 
-    axios.post('http://localhost:3000/retrain/upload', formData, config,{
-      headers: {"Access-Control-Allow-Origin": "*"}
-    })
+    axios.post('http://localhost:3000/retrain/upload', formData, config)
       .then(res => {
         console.log(res)
         this.setState({
@@ -96,40 +94,47 @@ class Home extends Component {
       })
   }
 
-  handleModelCancle() {
-    axios.post('http://localhost:3000/retrain/upload/cancel', {
-      pathName: this.state.results.modelPath
-    })
-      .then(res => {
-        console.log(res)
-        console.log("Test Result")
-        console.log(this.state.results)
-        this.setState({
-          results : ''
-        })
+  async handleModelCancle() {
+    
+    try {
+  
+      const res = await axios.post('http://localhost:3000/retrain/upload/cancel',{
+        pathName: this.state.results.modelPath
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+
+      console.log(res.data.status)
+      this.setState({
+        results : ''
+      })
+
+    } catch (error) {
+      console.log(error)
+    }
+   
   }
 
-  handleModelSave() {
-    axios.post('http://localhost:3000/retrain/upload/confirm', {
-      accuracy: this.state.results.accuracy,
-      recall: this.state.results.recall,
-      f1: this.state.results.f1,
-      model_name: this.state.results.modelName,
-      model_path: this.state.results.modelPath
-    })
-      .then(res => {
-        console.log(res);
-        this.setState({
-          results : ''
-        })
+  async handleModelSave() {
+
+    try {
+
+      await axios.post('http://localhost:3000/retrain/upload/confirm', {
+        accuracy: this.state.results.accuracy,
+        recall: this.state.results.recall,
+        f1: this.state.results.f1,
+        model_name: this.state.results.modelName,
+        model_path: this.state.results.modelPath,
+        stat : this.state.results.stat
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+
+      this.setState({
+        results : ''
+      })
+
+
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
   render() {

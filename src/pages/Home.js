@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend ,
+import { ResponsiveContainer,BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend ,
          PieChart, Pie} from 'recharts';
 
 import axios from 'axios'
+import styled from 'styled-components';
+
 import { Area } from '../charts/Charts'
 
 
-// const dataAge = [
-//   {name: '0-15', noncholan : 400, cholan: 1 },
-//   {name: '16-30', noncholan: 300, cholan: 20 },
-//   {name: '31-50', noncholan: 500, cholan: 10 },
-//   {name: '60++', noncholan: 450, cholan: 0 }
-// ];
+const Wrapper = styled.div`
+  margin: auto;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
 
-// const dataPie = [
-//     {name: 'Male', value: 2400}, 
-//     {name: 'Female', value: 4567}
-// ];
+  h1 {
+    color: #939393;
+  }
+`
 
 class Home extends Component {
 
   state = {
      dataAge : [],
-     dataGender : []
+     dataGender : [],
+     stat : [],
+     predictInfo : {}
   }
 
   componentDidMount() {
@@ -34,6 +36,22 @@ class Home extends Component {
           dataAge : res.data.age,
           dataGender : res.data.gender
         })
+
+        axios.get('http://localhost:3000/dashboard/stat')
+            .then(res => {
+              this.setState({
+                stat : res.data
+              })
+
+              axios.get('http://localhost:3000/predict/info')
+                   .then(res => {
+                     this.setState({
+                        predictInfo : res.data
+                     })
+                   })
+
+            })
+
       })
       .catch(function (error) {
         console.log(error);
@@ -44,6 +62,8 @@ class Home extends Component {
 
   render() {
 
+    const colName = ["Age","BMI","GammaGT","Alk.Phosphatase","ALT","CEA","CA199"]
+    
     return (
       <div>
         <ol class="breadcrumb">
@@ -53,48 +73,130 @@ class Home extends Component {
           <li class="breadcrumb-item active">My Dashboard</li>
         </ol>
 
-      	
-        <div className="card w-75" style={{marginBottom:'20px'}} >
-           <div class="card-header">
-            <i class="fa fa-area-chart"></i> Bar Chart Example</div>
-          <BarChart width={600} height={300} data={this.state.dataAge}
-            margin={{top: 20, right: 30, left: 20, bottom: 5}}>
-            <XAxis dataKey="name"/>
-            <YAxis/>
-            <CartesianGrid strokeDasharray="3 3"/>
-            <Tooltip/>
-            <Legend />
-            <Bar dataKey="noncholan" stackId="a" fill="#EB74A0" />
-            <Bar dataKey="cholan" stackId="a" fill="#4ABFC6" />
-          </BarChart>
-        </div>
+      <Wrapper>
 
-      <div className="card w-50" style={{marginBottom:'20px'}}>
-        <div class="card-header">
-            <i class="fa fa-area-chart"></i> Pie Chart Example
-        </div>
-
-        <div className="card-body">
-          <PieChart width={800} height={400}>
-            <Pie isAnimationActive={true} data={this.state.dataGender} cx={200} cy={200} outerRadius={130} fill="#EB74A0" label/>
-            {/* <Pie data={dataPie} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d"/> */}
-            <Tooltip/>
-          </PieChart>
-        </div>
-
-      </div>
-
-        
-
-        <div class="card mb-3">
+      <div class="card mb-3">
           <div class="card-header">
-            <i class="fa fa-area-chart"></i> Area Chart Example</div>
-          <div class="card-body">
-            <Area />
+             Summary
           </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          <div class="card-body">
+
+        <table class="table">
+          <tr> 
+            <th></th>
+              {colName.map(function(col, index){
+                      return <th key={index} > {col} </th>
+                })}
+          </tr>
+          
+          {
+            this.state.stat.map(function(row,index){
+              return (
+                  <tr key={index}>
+                    <th scope="row">{row.stat}</th>
+                      <td>{row.age}</td>
+                      <td>{row.BMI}</td>
+                      <td>{row.GammaGT}</td>
+                      <td>{row.AlkPhosphatase}</td>
+                      <td>{row.ALT}</td>
+                      <td>{row.CEA}</td>
+                      <td>{row.CA199}</td>
+                  </tr>
+              )
+            })
+          }
+
+        </table>
+
+        </div>
+          <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>      
+
+
+        <div className="card w-75" style={{margin : 'auto'}} >
+           <div className="card-header">
+            <i className="fa fa-area-chart"></i> Age </div>
+          	<BarChart width={600} height={300} data={this.state.dataAge}
+            margin={{top: 5, right: 30, left: 100, bottom: 5}}>
+              <XAxis dataKey="name"/>
+              <YAxis/>
+              <CartesianGrid strokeDasharray="3 3"/>
+              <Tooltip/>
+              <Legend />
+              <Bar dataKey="noncholan" fill="#E975A0" />
+              <Bar dataKey="cholan" fill="#82ca9d" />
+            </BarChart>
+            <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+
         </div>
 
+
+          
+          <div className="row" style={{marginTop:'20px'}}>
+            <div className="col-sm-6">
+              <div className="card">
+                <div className="card-block">
+                <div className="card-header">
+                <i className="fa fa-area-chart"></i> Gender
+              </div>
+  
+              <div className="card-body">
+                <PieChart width={800} height={400}>
+                  <Pie isAnimationActive={true} data={this.state.dataGender} cx={200} cy={200} outerRadius={150} fill="#EB74A0" label/>
+                  <Tooltip/>
+                </PieChart>
+              </div>
+  
+              <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-sm-6">
+              <div className="card">
+                  <div className="card-block">
+                  <div className="card-header">
+                    <i className="fa fa-area-chart"></i> Predictive Model
+                  </div>
+    
+                 <div className="card-body">
+                 <table className="table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Model</th>
+                        <td>{this.state.predictInfo.model_name}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Accuracy</th>
+                        <td>{this.state.predictInfo.accuracy}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Recall</th>
+                        <td>{this.state.predictInfo.recall}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">F1</th>
+                        <td>{this.state.predictInfo.f1}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+    
+                <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
+
+      </Wrapper>
 
       </div>
     )
