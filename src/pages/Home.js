@@ -29,13 +29,6 @@ class Home extends Component {
   }
 
   componentDidMount() {
-
-//     const doc = new jsPDF()
-
-// doc.text('Hello world!', 10, 10)
-// doc.save('a4.pdf')
-
-
     axios.get('http://localhost:3000/dashboard/info')
       .then(res => {
         console.log("Test component did mount")
@@ -75,9 +68,6 @@ class Home extends Component {
     return (
       <div>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="/">Dashboard</a>
-          </li>
           <li class="breadcrumb-item active">My Dashboard</li>
         </ol>
 

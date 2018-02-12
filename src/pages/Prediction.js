@@ -40,7 +40,11 @@ class Prediction extends Component {
     ALT: '',
     CEA: '',
     CA199: '',
-    proba : 0
+    proba : 0,
+    dataAge : [],
+    dataGender : [],
+    stat : [],
+    predictInfo : {}
   }
 
   updateValue = (e) => {
@@ -73,9 +77,6 @@ class Prediction extends Component {
       alkPhosphatase,gammaGT,ALT,CEA,CA199
     })
     .then(res => {
-      console.log("Test insert value")
-      console.log(res);
-      console.log(res.data.results);
       this.setState({
         proba : res.data.results.proba
       })
@@ -88,23 +89,86 @@ class Prediction extends Component {
   }
 
   componentDidMount() {
-    var doc = new jsPDF();
+          axios.get('http://localhost:3000/dashboard/stat')
+            .then(res => {
+              this.setState({
+                stat : res.data
+              })
 
-    doc.setFontSize(35)
-    doc.setFontType('bold')
+    const doc = new jsPDF();
+    var today = new Date();
     doc.setFont("courier");
+    doc.setFontSize(10)
+    doc.text(205, 7, today.toDateString() , null, null, 'right');
+    doc.setFontSize(40)
+    doc.setFontType('bold')
     doc.text(105, 25, 'CanWiser', null, null, 'center');
     doc.setFontSize(10)
     doc.setFontType('normal') 
-    doc.text(105, 33, 'A Smart Web Application Platform', null, null, 'center');
+    doc.text(105, 32, 'A Smart Web Application Platform For Cancer Analytics.', null, null, 'center');
     doc.setLineWidth(1.5);
-    doc.line(150, 40, 60, 40);
-// doc.save('a4.pdf')
+    doc.line(200, 38,10, 38);
+    
+    doc.setFontSize(15)
+    doc.text(105, 50, 'SUMMARY STANDARD ANALYTICS', null, null, 'center');
+    doc.setLineWidth(0.5);
+    doc.line(146, 52,64, 52);
+    
+    doc.setFontSize(13)
+    doc.text(50, 60, 'AGE');
+    doc.text(65, 60, 'BMI');
+    doc.text(80, 60, 'GammaGT');
+    doc.text(105, 60, 'ALKPhosphatase');
+    doc.text(150, 60, 'ALT');
+    doc.text(163, 60, 'CEA');
+    doc.text(177, 60, 'CA19-9');
+    
+    doc.text(20, 70, 'MEAN');
+    doc.text(20, 78, 'MEDIAN');
+    doc.text(20, 86, 'MAX');
+    doc.text(20, 94, 'MIN');
+    doc.setFontSize(10)
+    doc.text(50, 70, this.state.stat[0].age.toString());
+    doc.text(65, 70, this.state.stat[0].BMI.toString());
+    doc.text(80, 70, this.state.stat[0].GammaGT.toString());
+    doc.text(105, 70, this.state.stat[0].AlkPhosphatase.toString());
+    doc.text(150, 70, this.state.stat[0].ALT.toString());
+    doc.text(163, 70, this.state.stat[0].CEA.toString());
+    doc.text(177, 70, this.state.stat[0].CA199.toString());
+    
+    doc.text(50, 78, this.state.stat[1].age.toString());
+    doc.text(65, 78, this.state.stat[1].BMI.toString());
+    doc.text(80, 78, this.state.stat[1].GammaGT.toString());
+    doc.text(105, 78, this.state.stat[1].AlkPhosphatase.toString());
+    doc.text(150, 78, this.state.stat[1].ALT.toString());
+    doc.text(163, 78, this.state.stat[1].CEA.toString());
+    doc.text(177, 78, this.state.stat[1].CA199.toString());
+    
+    doc.text(50, 86, this.state.stat[2].age.toString());
+    doc.text(65, 86, this.state.stat[2].BMI.toString());
+    doc.text(80, 86, this.state.stat[2].GammaGT.toString());
+    doc.text(105, 86, this.state.stat[2].AlkPhosphatase.toString());
+    doc.text(150, 86, this.state.stat[2].ALT.toString());
+    doc.text(163, 86, this.state.stat[2].CEA.toString());
+    doc.text(177, 86, this.state.stat[2].CA199.toString());
+    
+    doc.text(50, 94, this.state.stat[3].age.toString());
+    doc.text(65, 94, this.state.stat[3].BMI.toString());
+    doc.text(80, 94, this.state.stat[3].GammaGT.toString());
+    doc.text(105, 94, this.state.stat[3].AlkPhosphatase.toString());
+    doc.text(150, 94, this.state.stat[3].ALT.toString());
+    doc.text(163, 94, this.state.stat[3].CEA.toString());
+    doc.text(177, 94, this.state.stat[3].CA199.toString());
+
+    doc.save('Results.pdf')
+})
+
+.catch(function (error) {
+  console.log(error);
+})
   }
 
   render() {
-    console.log(this.state)
-
     var recommends = ['งดสูบบุหรี่', 'กินอาหารดิบๆให้น้อยลง', 'พักผ่อนให้เพียงพอ'];
 
     return (
