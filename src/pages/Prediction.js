@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import styled from 'styled-components';
+import jsPDF from 'jspdf'
 
 const Wrapper = styled.div`
 
@@ -84,6 +85,21 @@ class Prediction extends Component {
       console.log(error);
     });
 
+  }
+
+  componentDidMount() {
+    var doc = new jsPDF();
+
+    doc.setFontSize(35)
+    doc.setFontType('bold')
+    doc.setFont("courier");
+    doc.text(105, 25, 'CanWiser', null, null, 'center');
+    doc.setFontSize(10)
+    doc.setFontType('normal') 
+    doc.text(105, 33, 'A Smart Web Application Platform', null, null, 'center');
+    doc.setLineWidth(1.5);
+    doc.line(150, 40, 60, 40);
+// doc.save('a4.pdf')
   }
 
   render() {

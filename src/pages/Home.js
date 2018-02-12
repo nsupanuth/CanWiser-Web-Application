@@ -6,6 +6,7 @@ import axios from 'axios'
 import styled from 'styled-components';
 
 import { Area } from '../charts/Charts'
+import jsPDF from 'jspdf'
 
 
 const Wrapper = styled.div`
@@ -28,6 +29,13 @@ class Home extends Component {
   }
 
   componentDidMount() {
+
+//     const doc = new jsPDF()
+
+// doc.text('Hello world!', 10, 10)
+// doc.save('a4.pdf')
+
+
     axios.get('http://localhost:3000/dashboard/info')
       .then(res => {
         console.log("Test component did mount")
