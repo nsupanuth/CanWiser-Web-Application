@@ -121,6 +121,7 @@ class Prediction extends Component {
     doc.text(20, 78, 'MEDIAN');
     doc.text(20, 86, 'MAX');
     doc.text(20, 94, 'MIN');
+
     doc.setFontSize(10)
     doc.text(50, 70, this.state.stat[0].age.toString());
     doc.text(65, 70, this.state.stat[0].BMI.toString());
@@ -162,6 +163,19 @@ class Prediction extends Component {
     doc.setLineWidth(0.5);
     doc.line(143, 117, 67, 117);
 
+    doc.setFontSize(14)
+    doc.text(20, 185, 'PATIENT NO.:');
+    doc.text(20, 193, 'PATIENT NAME:');
+    doc.text(20, 201, 'GENDER:');
+    doc.text(20, 209, 'AGE:');
+    doc.text(20, 217, 'HEIGHT:');
+    doc.text(20, 225, 'WEIGHT:');
+    doc.text(20, 233, 'GammaGT:');
+    doc.text(20, 241, 'alkPhosphatase:');
+    doc.text(20, 249, 'ALT:');
+    doc.text(20, 257, 'CEA:');
+    doc.text(20, 265, 'CA199:');
+
     doc.setFontSize(13)
     doc.text(20, 130, 'MODEL');
     doc.text(20, 138, 'ACCURACY');
@@ -180,6 +194,23 @@ class Prediction extends Component {
     doc.text(105, 175, 'PATIENT PART', null, null, 'center');
     doc.setLineWidth(0.5);
     doc.line(124, 177, 86, 177);
+
+    doc.text(70, 185, '123456789');
+    doc.text(70, 193, 'Prayou Jhunocha');
+    doc.text(70, 201, '-');
+    doc.text(70, 209, '50');
+    doc.text(70, 217, '10');
+    doc.text(70, 225, '10');
+    doc.text(70, 233, '10.02');
+    doc.text(70, 241, '13.41');
+    doc.text(70, 249, '50.47');
+    doc.text(70, 257, '20.12');
+    doc.text(70, 265, '14.4');
+
+    doc.text(20, 281, 'Note:');
+    doc.setLineWidth(0.3);
+    doc.line(35, 281, 200, 281);
+    doc.line(35, 289, 200, 289);
     
 
     // doc.save('Results.pdf')
