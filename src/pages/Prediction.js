@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import styled from 'styled-components';
+import jsPDF from 'jspdf'
 
 const Wrapper = styled.div`
 
@@ -39,7 +40,11 @@ class Prediction extends Component {
     ALT: '',
     CEA: '',
     CA199: '',
-    proba : 0
+    proba : 0,
+    dataAge : [],
+    dataGender : [],
+    stat : [],
+    predictInfo : {}
   }
 
   updateValue = (e) => {
@@ -72,9 +77,6 @@ class Prediction extends Component {
       alkPhosphatase,gammaGT,ALT,CEA,CA199
     })
     .then(res => {
-      console.log("Test insert value")
-      console.log(res);
-      console.log(res.data.results);
       this.setState({
         proba : res.data.results.proba
       })
@@ -86,9 +88,150 @@ class Prediction extends Component {
 
   }
 
-  render() {
-    console.log(this.state)
+  SaveAsPDF = () => {
+    const doc = new jsPDF();
+    var today = new Date();
+    doc.setFont("courier");
+    doc.setFontSize(10)
+    doc.text(205, 7, today.toDateString() , null, null, 'right');
+    doc.setFontSize(40)
+    doc.setFontType('bold')
+    doc.text(105, 25, 'CanWiser', null, null, 'center');
+    doc.setFontSize(10)
+    doc.setFontType('normal') 
+    doc.text(105, 32, 'A Smart Web Application Platform For Cancer Analytics.', null, null, 'center');
+    doc.setLineWidth(1.5);
+    doc.line(200, 38,10, 38);
+    
+    doc.setFontSize(15)
+    doc.text(105, 50, 'SUMMARY STANDARD ANALYTICS', null, null, 'center');
+    doc.setLineWidth(0.5);
+    doc.line(146, 52,64, 52);
+    
+    doc.setFontSize(13)
+    doc.text(50, 60, 'AGE');
+    doc.text(65, 60, 'BMI');
+    doc.text(80, 60, 'GammaGT');
+    doc.text(105, 60, 'ALKPhosphatase');
+    doc.text(150, 60, 'ALT');
+    doc.text(163, 60, 'CEA');
+    doc.text(177, 60, 'CA19-9');
+    
+    doc.text(20, 70, 'MEAN');
+    doc.text(20, 78, 'MEDIAN');
+    doc.text(20, 86, 'MAX');
+    doc.text(20, 94, 'MIN');
 
+    doc.setFontSize(10)
+    doc.text(50, 70, this.state.stat[0].age.toString());
+    doc.text(65, 70, this.state.stat[0].BMI.toString());
+    doc.text(80, 70, this.state.stat[0].GammaGT.toString());
+    doc.text(105, 70, this.state.stat[0].AlkPhosphatase.toString());
+    doc.text(150, 70, this.state.stat[0].ALT.toString());
+    doc.text(163, 70, this.state.stat[0].CEA.toString());
+    doc.text(177, 70, this.state.stat[0].CA199.toString());
+    
+    doc.text(50, 78, this.state.stat[1].age.toString());
+    doc.text(65, 78, this.state.stat[1].BMI.toString());
+    doc.text(80, 78, this.state.stat[1].GammaGT.toString());
+    doc.text(105, 78, this.state.stat[1].AlkPhosphatase.toString());
+    doc.text(150, 78, this.state.stat[1].ALT.toString());
+    doc.text(163, 78, this.state.stat[1].CEA.toString());
+    doc.text(177, 78, this.state.stat[1].CA199.toString());
+    
+    doc.text(50, 86, this.state.stat[2].age.toString());
+    doc.text(65, 86, this.state.stat[2].BMI.toString());
+    doc.text(80, 86, this.state.stat[2].GammaGT.toString());
+    doc.text(105, 86, this.state.stat[2].AlkPhosphatase.toString());
+    doc.text(150, 86, this.state.stat[2].ALT.toString());
+    doc.text(163, 86, this.state.stat[2].CEA.toString());
+    doc.text(177, 86, this.state.stat[2].CA199.toString());
+    
+    doc.text(50, 94, this.state.stat[3].age.toString());
+    doc.text(65, 94, this.state.stat[3].BMI.toString());
+    doc.text(80, 94, this.state.stat[3].GammaGT.toString());
+    doc.text(105, 94, this.state.stat[3].AlkPhosphatase.toString());
+    doc.text(150, 94, this.state.stat[3].ALT.toString());
+    doc.text(163, 94, this.state.stat[3].CEA.toString());
+    doc.text(177, 94, this.state.stat[3].CA199.toString());
+
+    doc.setLineWidth(1.5);
+    doc.line(200, 105,10, 105);
+
+    doc.setFontSize(15)
+    doc.text(105, 115, 'SUMMARY PREDICTIVE MODEL', null, null, 'center');
+    doc.setLineWidth(0.5);
+    doc.line(143, 117, 67, 117);
+
+    doc.setFontSize(14)
+    doc.text(20, 185, 'PATIENT NO.:');
+    doc.text(20, 193, 'PATIENT NAME:');
+    doc.text(20, 201, 'GENDER:');
+    doc.text(20, 209, 'AGE:');
+    doc.text(20, 217, 'HEIGHT:');
+    doc.text(20, 225, 'WEIGHT:');
+    doc.text(20, 233, 'GammaGT:');
+    doc.text(20, 241, 'alkPhosphatase:');
+    doc.text(20, 249, 'ALT:');
+    doc.text(20, 257, 'CEA:');
+    doc.text(20, 265, 'CA199:');
+
+    doc.setFontSize(13)
+    doc.text(20, 130, 'MODEL');
+    doc.text(20, 138, 'ACCURACY');
+    doc.text(20, 146, 'RECALL');
+    doc.text(20, 154, 'F1');
+
+    doc.text(50, 130, '0.1234');
+    doc.text(50, 138, '0.1234');
+    doc.text(50, 146, '0.1234');
+    doc.text(50, 154, '0.1234');
+
+    doc.setLineWidth(0.5);
+    doc.line(200, 165,10, 165);
+    
+    doc.setFontSize(15)
+    doc.text(105, 175, 'PATIENT PART', null, null, 'center');
+    doc.setLineWidth(0.5);
+    doc.line(124, 177, 86, 177);
+
+    doc.text(70, 185, '123456789');
+    doc.text(70, 193, 'Prayou Jhunocha');
+    doc.text(70, 201, '-');
+    doc.text(70, 209, '50');
+    doc.text(70, 217, '10');
+    doc.text(70, 225, '10');
+    doc.text(70, 233, '10.02');
+    doc.text(70, 241, '13.41');
+    doc.text(70, 249, '50.47');
+    doc.text(70, 257, '20.12');
+    doc.text(70, 265, '14.4');
+
+    doc.text(20, 281, 'Note:');
+    doc.setLineWidth(0.3);
+    doc.line(35, 281, 200, 281);
+    doc.line(35, 289, 200, 289);
+    
+
+    // doc.save('Results.pdf')
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:3000/dashboard/stat')
+      .then(res => {
+        this.setState({
+          stat : res.data
+        })
+
+    this.SaveAsPDF()
+})
+
+.catch(function (error) {
+  console.log(error);
+})
+  }
+
+  render() {
     var recommends = ['งดสูบบุหรี่', 'กินอาหารดิบๆให้น้อยลง', 'พักผ่อนให้เพียงพอ'];
 
     return (

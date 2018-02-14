@@ -6,6 +6,7 @@ import axios from 'axios'
 import styled from 'styled-components';
 
 import { Area } from '../charts/Charts'
+import jsPDF from 'jspdf'
 
 
 const Wrapper = styled.div`
@@ -67,9 +68,6 @@ class Home extends Component {
     return (
       <div>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="/">Dashboard</a>
-          </li>
           <li class="breadcrumb-item active">My Dashboard</li>
         </ol>
 
