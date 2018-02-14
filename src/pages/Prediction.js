@@ -88,13 +88,7 @@ class Prediction extends Component {
 
   }
 
-  componentDidMount() {
-          axios.get('http://localhost:3000/dashboard/stat')
-            .then(res => {
-              this.setState({
-                stat : res.data
-              })
-
+  SaveAsPDF = () => {
     const doc = new jsPDF();
     var today = new Date();
     doc.setFont("courier");
@@ -160,7 +154,20 @@ class Prediction extends Component {
     doc.text(163, 94, this.state.stat[3].CEA.toString());
     doc.text(177, 94, this.state.stat[3].CA199.toString());
 
-    doc.save('Results.pdf')
+    doc.setLineWidth(1.5);
+    doc.line(200, 105,10, 105);
+
+    // doc.save('Results.pdf')
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:3000/dashboard/stat')
+      .then(res => {
+        this.setState({
+          stat : res.data
+        })
+
+    this.SaveAsPDF()
 })
 
 .catch(function (error) {
