@@ -19,19 +19,17 @@ export default class App extends Component {
   render() {
     return (
       <Wrapper>
-        <Navbar />
-        <div className="content-wrapper">
           <div className="container-fluid">
-              <div>
               <Switch>
                 <Route exact path="/" component = {Login} />
-                <Route exact path="/dashboard" component={Home} />
-                <Route exact path="/upload" component={Upload} />
-                <Route exact path="/prediction" component={Prediction} />
+                <div className="content-wrapper">
+                    <Navbar />
+                    <Route exact path="/dashboard" component={Home} />
+                    <Route exact path="/upload" component={Upload} />
+                    <Route exact path="/prediction" component={Prediction} />
+                </div>
               </Switch>
-              </div>
           </div>
-        </div>
       </Wrapper>
     )
   }
