@@ -163,7 +163,7 @@ class Prediction extends Component {
     doc.setLineWidth(0.5);
     doc.line(143, 117, 67, 117);
 
-    doc.setFontSize(14)
+    doc.setFontSize(15)
     doc.text(20, 185, 'PATIENT NO.:');
     doc.text(20, 193, 'PATIENT NAME:');
     doc.text(20, 201, 'GENDER:');
@@ -182,6 +182,7 @@ class Prediction extends Component {
     doc.text(20, 146, 'RECALL');
     doc.text(20, 154, 'F1');
 
+    doc.setFontSize(13)
     doc.text(50, 130, '0.1234');
     doc.text(50, 138, '0.1234');
     doc.text(50, 146, '0.1234');
@@ -195,8 +196,9 @@ class Prediction extends Component {
     doc.setLineWidth(0.5);
     doc.line(124, 177, 86, 177);
 
+    doc.setFontSize(13)
     doc.text(70, 185, '123456789');
-    doc.text(70, 193, 'Prayou Jhunocha');
+    doc.text(70, 193, 'Prayout Jhunocha');
     doc.text(70, 201, '-');
     doc.text(70, 209, '50');
     doc.text(70, 217, '10');
@@ -207,13 +209,23 @@ class Prediction extends Component {
     doc.text(70, 257, '20.12');
     doc.text(70, 265, '14.4');
 
+    doc.setFontSize(15)
     doc.text(20, 281, 'Note:');
     doc.setLineWidth(0.3);
     doc.line(35, 281, 200, 281);
     doc.line(35, 289, 200, 289);
-    
 
-    // doc.save('Results.pdf')
+    doc.text(120, 209, 'RECOMMENDATION');
+    doc.setLineWidth(0.5);
+    doc.line(120, 211, 162, 211);
+    
+    doc.setFontSize(12)
+    doc.text(120, 217, '- NO SMOKING');
+    doc.text(120, 225, '- KIN ARHARN KROB 5 MU');
+    doc.text(120, 233, '- KIN PUK BAI KEOW');
+    doc.text(120, 241, '- NON HAI TONG VERA');
+
+    doc.save('Results.pdf')
   }
 
   componentDidMount() {
