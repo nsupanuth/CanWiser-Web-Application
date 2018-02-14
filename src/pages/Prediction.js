@@ -157,6 +157,31 @@ class Prediction extends Component {
     doc.setLineWidth(1.5);
     doc.line(200, 105,10, 105);
 
+    doc.setFontSize(15)
+    doc.text(105, 115, 'SUMMARY PREDICTIVE MODEL', null, null, 'center');
+    doc.setLineWidth(0.5);
+    doc.line(143, 117, 67, 117);
+
+    doc.setFontSize(13)
+    doc.text(20, 130, 'MODEL');
+    doc.text(20, 138, 'ACCURACY');
+    doc.text(20, 146, 'RECALL');
+    doc.text(20, 154, 'F1');
+
+    doc.text(50, 130, '0.1234');
+    doc.text(50, 138, '0.1234');
+    doc.text(50, 146, '0.1234');
+    doc.text(50, 154, '0.1234');
+
+    doc.setLineWidth(0.5);
+    doc.line(200, 165,10, 165);
+    
+    doc.setFontSize(15)
+    doc.text(105, 175, 'PATIENT PART', null, null, 'center');
+    doc.setLineWidth(0.5);
+    doc.line(124, 177, 86, 177);
+    
+
     // doc.save('Results.pdf')
   }
 
