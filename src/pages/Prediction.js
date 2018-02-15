@@ -142,6 +142,8 @@ class Prediction extends Component {
         doc.text(20, 78, 'MEDIAN');
         doc.text(20, 86, 'MAX');
         doc.text(20, 94, 'MIN');
+        doc.setFontSize(7)
+        doc.text(5, 100, '* Normal range of GammaGT(9-48 U/L), Alkaline phosphatase(44-147 IU/L), ALT(7-56 U/L), CEA(equal or less than 3ng/mL), CA19-9(0-37 U/ml)');
 
         doc.setFontSize(10)
         doc.text(50, 70, this.state.stat[0].age.toString());
@@ -205,10 +207,10 @@ class Prediction extends Component {
         doc.text(20, 154, 'F1');
 
         doc.setFontSize(13)
-        doc.text(50, 130, '0.1234');
-        doc.text(50, 138, '0.1234');
-        doc.text(50, 146, '0.1234');
-        doc.text(50, 154, '0.1234');
+        doc.text(50, 130, 'Random forest');
+        doc.text(50, 138, '0.8574126534466477');
+        doc.text(50, 146, '0.5025122216186855');
+        doc.text(50, 154, '0.46811355585491193');
 
         doc.setLineWidth(0.5);
         doc.line(200, 165, 10, 165);
@@ -225,11 +227,11 @@ class Prediction extends Component {
         doc.text(70, 209, this.state.age.toString());
         doc.text(70, 217, this.state.height.toString());
         doc.text(70, 225, this.state.weight.toString());
-        doc.text(70, 233, this.state.gammaGT.toString());
-        doc.text(70, 241, this.state.alkPhosphatase.toString());
-        doc.text(70, 249, this.state.ALT.toString());
-        doc.text(70, 257, this.state.CEA.toString());
-        doc.text(70, 265, this.state.CA199.toString());
+        doc.text(70, 233, this.state.gammaGT.toString()+'(9-48 U/L)');
+        doc.text(70, 241, this.state.alkPhosphatase.toString()+'(44-147 IU/L)');
+        doc.text(70, 249, this.state.ALT.toString()+'(7-56 U/L)');
+        doc.text(70, 257, this.state.CEA.toString()+'(equal or less than 3ng/mL)');
+        doc.text(70, 265, this.state.CA199.toString()+'(0-37 U/ml)');
         doc.text(70, 273, this.state.proba.toString());
 
         doc.setFontSize(15)
