@@ -30,22 +30,24 @@ class Prediction extends Component {
     age: '',
     height: '',
     weight: '',
+    smoke : 1,
     phy6_2_5_vs1: 1,
     phy6_2_12_vs1: 1,
     phy9_3_6_vs1: 1,
     phy2_5_vs1: 1,
     phy8_1_3_vs1: 1,
     phy5_5_vs1: 1,
-    alkPhosphatase: '',
-    gammaGT : '',
-    ALT: '',
-    CEA: '',
-    CA199: '',
+    alkPhosphatase: 0,
+    gammaGT : 0,
+    ALT: 0,
+    CEA: 0,
+    CA199: 0,
     proba : 0,
     dataAge : [],
     dataGender : [],
     stat : [],
-    predictInfo : {}
+    predictInfo : {},
+    recommends : ['กินอาหารดิบๆให้น้อยลง', 'พักผ่อนให้เพียงพอ']
   }
 
   updateValue = (e) => {
@@ -55,7 +57,7 @@ class Prediction extends Component {
       else value = 1
     }
 
-    if(e.target.id === 'phy6_2_5_vs1' || e.target.id === 'phy6_2_12_vs1' || e.target.id === 'phy9_3_6_vs1' ||
+    if(e.target.id === 'phy6_2_5_vs1' || e.target.id === 'smoke' || e.target.id === 'phy6_2_12_vs1' || e.target.id === 'phy9_3_6_vs1' ||
        e.target.id === 'phy2_5_vs1' || e.target.id === 'phy8_1_3_vs1' || e.target.id === 'phy5_5_vs1' )
     { 
       e.target.value === 'เคย' ? value = 1 : value = 0;
@@ -68,7 +70,9 @@ class Prediction extends Component {
 
   handlePostForRecommend(){
     
-    const {patientNo,gender,age,height,weight,
+    const { recommend } = this.state
+
+    const {patientNo,gender,age,height,weight,smoke,
       phy6_2_5_vs1,phy6_2_12_vs1,phy9_3_6_vs1,phy2_5_vs1,phy8_1_3_vs1,phy5_5_vs1,
       alkPhosphatase,gammaGT,ALT,CEA,CA199} = this.state
 
@@ -78,10 +82,18 @@ class Prediction extends Component {
       alkPhosphatase,gammaGT,ALT,CEA,CA199
     })
     .then(res => {
+
       this.setState({
         proba : res.data.results.proba
       })
 
+      if(smoke === 1){
+        this.setState({
+          recommends : [...this.state.recommends,"งดสูบบุหรี่"]
+        })
+      }
+
+     
     })
     .catch(function (error) {
       console.log(error);
@@ -277,6 +289,14 @@ class Prediction extends Component {
             <label for="exampleFormControlSelect1">Weight</label>
             <input type="text" class="form-control" id="weight" placeholder="Number Only" onChange={this.updateValue} />
           </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">ประวัติการสูบบุหรี่</label>
+            <select class="form-control" id="phy6_2_5_vs1" onChange={this.updateValue}>
+              <option>เคย</option>
+              <option>ไม่เคย</option>
+            </select>
+          </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">phy6_2_5_vs1</label>
             <select class="form-control" id="phy6_2_5_vs1" onChange={this.updateValue}>
@@ -362,10 +382,10 @@ class Prediction extends Component {
             <RecommendStyle>
 
               <div className="modal-body">
-                <p> <b>โอกาสเป็นมะเร็งท่อน้ำดี : {this.state.proba*100}% </b></p>
+                <p> <b>โอกาสเป็นมะเร็งท่อน้ำดี : { !this.state.proba == 0 ? (this.state.proba*100).toFixed(2) : 0}%  </b></p>
 
                 <ul>
-                  {recommends.map(function(recommend, index){
+                  {this.state.recommends.map(function(recommend, index){
                       return <div key={ index }> <i style={{color : '#dfe81f'}} className="fa fa-star"></i> {recommend} </div>
                     })}
                 </ul>

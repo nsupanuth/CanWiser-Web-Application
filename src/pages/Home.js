@@ -38,33 +38,34 @@ class Home extends Component {
           dataGender : res.data.gender
         })
 
-        axios.get('http://localhost:3000/dashboard/stat')
-            .then(res => {
-              this.setState({
-                stat : res.data
-              })
-
-              axios.get('http://localhost:3000/predict/info')
-                   .then(res => {
-                     this.setState({
-                        predictInfo : res.data
-                     })
-                   })
-
-            })
-
       })
       .catch(function (error) {
         console.log(error);
       })
+
+      axios.get('http://localhost:3000/dashboard/stat')
+      .then(res => {
+        this.setState({
+          stat : res.data
+        })
+      })
+
+
+      axios.get('http://localhost:3000/predict/info')
+      .then(res => {
+        this.setState({
+           predictInfo : res.data
+        })
+      })
+
 
   }
 
 
   render() {
 
-    const colName = ["Age","BMI","GammaGT","Alk.Phosphatase","ALT","CEA","CA199"]
-    
+    const colName = ["Age","BMI","GammaGT","Alk.Phosphatase","ALT","CEA","CA19-9"]
+
     return (
       <div>
         <ol class="breadcrumb">
@@ -172,15 +173,23 @@ class Home extends Component {
                       </tr>
                       <tr>
                         <th scope="row">Accuracy</th>
-                        <td>{this.state.predictInfo.accuracy}</td>
+                        <td>
+                          { !this.state.predictInfo.accuracy ? 0 : 
+                              this.state.predictInfo.accuracy.toFixed(2)
+                          }
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">Recall</th>
-                        <td>{this.state.predictInfo.recall}</td>
+                        <td>{ !this.state.predictInfo.recall ? 0 : 
+                          this.state.predictInfo.recall.toFixed(2)
+                      }</td>
                       </tr>
                       <tr>
                         <th scope="row">F1</th>
-                        <td>{this.state.predictInfo.f1}</td>
+                        <td>{ !this.state.predictInfo.f1 ? 0 : 
+                          this.state.predictInfo.f1.toFixed(2)
+                      }</td>
                       </tr>
                     </tbody>
                   </table>

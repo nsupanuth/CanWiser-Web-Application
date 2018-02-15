@@ -63,22 +63,24 @@ class Navbar extends Component {
                 <img className="rounded-circle" alt="profile" src={Profile} />
             </li>
 
-            { this.props.role === 'Doctor'  &&
+            { ((this.props.role === 'Doctor') && (this.props.loginToken != '')) ?
               <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
                 <Link className="nav-link" to="/dashboard">
                   <i className="fa fa-fw fa-dashboard"></i>
                   <span className="nav-link-text">Dashboard</span>
                  </Link>
               </li>
+              : ''
             }
 
-            { this.props.role === 'Doctor'  &&
+            { ((this.props.role === 'Doctor') && (this.props.loginToken != '')) ?
               <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
                 <Link className="nav-link" to="/upload">
                   <i className="fa fa-fw fa-area-chart"></i>
                   <span className="nav-link-text">Upload</span>
                 </Link>
               </li>
+              : ''
             }
 
 
