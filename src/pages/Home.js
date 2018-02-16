@@ -17,6 +17,12 @@ const Wrapper = styled.div`
   h1 {
     color: #939393;
   }
+
+  .card-footer-info {
+    padding: .75rem 1.25rem;
+    background-color: transparent;
+    border-top: 1px solid rgba(0,0,0,.125);
+}
 `
 
 class Home extends Component {
@@ -64,8 +70,8 @@ class Home extends Component {
 
   render() {
 
-    const colName = ["Age","BMI","GammaGT","Alk.Phosphatase","ALT","CEA","CA19-9"]
-
+    const colName = ["Age","BMI","GammaGT*","Alk.Phosphatase*","ALT*","CEA*","CA19-9*"]
+    
     return (
       <div>
         <ol class="breadcrumb">
@@ -108,6 +114,7 @@ class Home extends Component {
         </table>
 
         </div>
+        <div className="card-footer-info small text-muted">* Normal range of GammaGT(9-48 U/L), Alkaline phosphatase(44-147 IU/L), ALT(7-56 U/L), CEA(equal or less than 3ng/mL), CA19-9(0-37 U/ml)</div>
           <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>      
 

@@ -5,13 +5,28 @@ import jsPDF from 'jspdf'
 
 const Wrapper = styled.div`
 
-  width: 50%;
+  width: 70%;
   margin: auto;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
+  padding-bottom: 40px;
 
   h1 {
     color: #939393;
+  }
+
+  .btn-primary {
+    background-color: #3AB7C0;
+    border-color: #3AB7C0;
+  }
+
+  .btn-primary:hover {
+    cursor: pointer;
+  }
+
+  .btn-danger {
+    background-color: #E66996;
+    border-color: #E66996;
   }
 `
 
@@ -52,8 +67,8 @@ class Prediction extends Component {
 
   updateValue = (e) => {
     let value = e.target.value
-    if(e.target.id === 'gender'){
-      if(e.target.value === 'Male') value = 0
+    if (e.target.id === 'gender') {
+      if (e.target.value === 'Male') value = 0
       else value = 1
     }
 
@@ -77,9 +92,9 @@ class Prediction extends Component {
       alkPhosphatase,gammaGT,ALT,CEA,CA199} = this.state
 
     axios.post('http://localhost:3000/predict/test/cholan', {
-      patientNo,gender,age,height,weight,
-      phy6_2_5_vs1,phy6_2_12_vs1,phy9_3_6_vs1,phy2_5_vs1,phy8_1_3_vs1,phy5_5_vs1,
-      alkPhosphatase,gammaGT,ALT,CEA,CA199
+      patientNo, gender, age, height, weight,
+      phy6_2_5_vs1, phy6_2_12_vs1, phy9_3_6_vs1, phy2_5_vs1, phy8_1_3_vs1, phy5_5_vs1,
+      alkPhosphatase, gammaGT, ALT, CEA, CA199
     })
     .then(res => {
 
@@ -123,28 +138,28 @@ class Prediction extends Component {
     axios.get('http://localhost:3000/dashboard/stat')
       .then(res => {
         this.setState({
-          stat : res.data
+          stat: res.data
         })
 
         const doc = new jsPDF();
         var today = new Date();
         doc.setFont("courier");
         doc.setFontSize(10)
-        doc.text(205, 7, today.toDateString() , null, null, 'right');
+        doc.text(205, 7, today.toDateString(), null, null, 'right');
         doc.setFontSize(40)
         doc.setFontType('bold')
         doc.text(105, 25, 'CanWiser', null, null, 'center');
         doc.setFontSize(10)
-        doc.setFontType('normal') 
+        doc.setFontType('normal')
         doc.text(105, 32, 'A Smart Web Application Platform For Cancer Analytics.', null, null, 'center');
         doc.setLineWidth(1.5);
-        doc.line(200, 38,10, 38);
-        
+        doc.line(200, 38, 10, 38);
+
         doc.setFontSize(15)
         doc.text(105, 50, 'SUMMARY STANDARD ANALYTICS', null, null, 'center');
         doc.setLineWidth(0.5);
-        doc.line(146, 52,64, 52);
-        
+        doc.line(146, 52, 64, 52);
+
         doc.setFontSize(13)
         doc.text(50, 60, 'AGE');
         doc.text(65, 60, 'BMI');
@@ -153,11 +168,13 @@ class Prediction extends Component {
         doc.text(150, 60, 'ALT');
         doc.text(163, 60, 'CEA');
         doc.text(177, 60, 'CA19-9');
-        
+
         doc.text(20, 70, 'MEAN');
         doc.text(20, 78, 'MEDIAN');
         doc.text(20, 86, 'MAX');
         doc.text(20, 94, 'MIN');
+        doc.setFontSize(7)
+        doc.text(5, 100, '* Normal range of GammaGT(9-48 U/L), Alkaline phosphatase(44-147 IU/L), ALT(7-56 U/L), CEA(equal or less than 3ng/mL), CA19-9(0-37 U/ml)');
 
         doc.setFontSize(10)
         doc.text(50, 70, this.state.stat[0].age.toString());
@@ -167,7 +184,7 @@ class Prediction extends Component {
         doc.text(150, 70, this.state.stat[0].ALT.toString());
         doc.text(163, 70, this.state.stat[0].CEA.toString());
         doc.text(177, 70, this.state.stat[0].CA199.toString());
-        
+
         doc.text(50, 78, this.state.stat[1].age.toString());
         doc.text(65, 78, this.state.stat[1].BMI.toString());
         doc.text(80, 78, this.state.stat[1].GammaGT.toString());
@@ -175,7 +192,7 @@ class Prediction extends Component {
         doc.text(150, 78, this.state.stat[1].ALT.toString());
         doc.text(163, 78, this.state.stat[1].CEA.toString());
         doc.text(177, 78, this.state.stat[1].CA199.toString());
-        
+
         doc.text(50, 86, this.state.stat[2].age.toString());
         doc.text(65, 86, this.state.stat[2].BMI.toString());
         doc.text(80, 86, this.state.stat[2].GammaGT.toString());
@@ -183,7 +200,7 @@ class Prediction extends Component {
         doc.text(150, 86, this.state.stat[2].ALT.toString());
         doc.text(163, 86, this.state.stat[2].CEA.toString());
         doc.text(177, 86, this.state.stat[2].CA199.toString());
-        
+
         doc.text(50, 94, this.state.stat[3].age.toString());
         doc.text(65, 94, this.state.stat[3].BMI.toString());
         doc.text(80, 94, this.state.stat[3].GammaGT.toString());
@@ -193,7 +210,7 @@ class Prediction extends Component {
         doc.text(177, 94, this.state.stat[3].CA199.toString());
 
         doc.setLineWidth(1.5);
-        doc.line(200, 105,10, 105);
+        doc.line(200, 105, 10, 105);
 
         doc.setFontSize(15)
         doc.text(105, 115, 'SUMMARY PREDICTIVE MODEL', null, null, 'center');
@@ -221,14 +238,14 @@ class Prediction extends Component {
         doc.text(20, 154, 'F1');
 
         doc.setFontSize(13)
-        doc.text(50, 130, '0.1234');
-        doc.text(50, 138, '0.1234');
-        doc.text(50, 146, '0.1234');
-        doc.text(50, 154, '0.1234');
+        doc.text(50, 130, 'Random forest');
+        doc.text(50, 138, '0.8574126534466477');
+        doc.text(50, 146, '0.5025122216186855');
+        doc.text(50, 154, '0.46811355585491193');
 
         doc.setLineWidth(0.5);
-        doc.line(200, 165,10, 165);
-        
+        doc.line(200, 165, 10, 165);
+
         doc.setFontSize(15)
         doc.text(105, 175, 'PATIENT PART', null, null, 'center');
         doc.setLineWidth(0.5);
@@ -237,15 +254,15 @@ class Prediction extends Component {
         doc.setFontSize(13)
         doc.text(70, 185, this.state.patientNo.toString());
         doc.text(70, 193, this.state.patientName.toString());
-        doc.text(70, 201, this.state.gender ? 'FEMALE' : 'MALE' );
+        doc.text(70, 201, this.state.gender ? 'FEMALE' : 'MALE');
         doc.text(70, 209, this.state.age.toString());
         doc.text(70, 217, this.state.height.toString());
         doc.text(70, 225, this.state.weight.toString());
-        doc.text(70, 233, this.state.gammaGT.toString());
-        doc.text(70, 241, this.state.alkPhosphatase.toString());
-        doc.text(70, 249, this.state.ALT.toString());
-        doc.text(70, 257, this.state.CEA.toString());
-        doc.text(70, 265, this.state.CA199.toString());
+        doc.text(70, 233, this.state.gammaGT.toString()+'(9-48 U/L)');
+        doc.text(70, 241, this.state.alkPhosphatase.toString()+'(44-147 IU/L)');
+        doc.text(70, 249, this.state.ALT.toString()+'(7-56 U/L)');
+        doc.text(70, 257, this.state.CEA.toString()+'(equal or less than 3ng/mL)');
+        doc.text(70, 265, this.state.CA199.toString()+'(0-37 U/ml)');
         doc.text(70, 273, this.state.proba.toString());
 
         doc.setFontSize(15)
@@ -257,7 +274,7 @@ class Prediction extends Component {
         doc.text(120, 209, 'RECOMMENDATION');
         doc.setLineWidth(0.5);
         doc.line(120, 211, 162, 211);
-        
+
         doc.setFontSize(12)
         doc.text(120, 217, '- NO SMOKING');
         doc.text(120, 225, '- KIN ARHARN KROB 5 MU');
@@ -265,17 +282,18 @@ class Prediction extends Component {
         doc.text(120, 241, '- NON HAI TONG VERA');
 
         doc.save('Results.pdf');
-            
-    })
 
-    .catch(function (error) {
-      console.log(error);
-    })
+      })
+
+      .catch(function (error) {
+        console.log(error);
+      })
   }
 
   render() {
 
     return (
+    <div>
       <Wrapper>
         <h1 style={{ marginTop: 100 }}>Fill Your Data Here !</h1>
         <form>
@@ -373,11 +391,11 @@ class Prediction extends Component {
             <input type="text" class="form-control" id="CA199" placeholder="Number Only" onChange={this.updateValue}/>
           </div>
 
-          <button data-toggle="modal" data-target="#myModal" 
-                  onClick={() => this.handlePostForRecommend()}
-                  type="button" 
-                  class="btn btn-primary">
-                  Submit
+            <button data-toggle="modal" data-target="#myModal"
+              onClick={() => this.handlePostForRecommend()}
+              type="button"
+              class="btn btn-primary">
+              Submit
           </button>
           
         </form>
@@ -405,21 +423,24 @@ class Prediction extends Component {
                 </ul>
                   <div style={{fontSize:'20px'}}>หมายเหตุ : เป็นแค่การวินิฉัยในเบื้องต้นจากการวิเคราะห์ข้อมูลทางสถิติเท่านั้น</div> 
               </div>
-
+        
             </RecommendStyle>
+
+                
 
             <div className="modal-footer">
               <button type="button" className="btn btn-primary" onClick={() => this.SaveAsPDF()}>Save As PDF</button>
               <button type="button" className="btn btn-danger" 
                 onClick={() => {this.setState({recommends : [],proba : 0})}} data-dismiss="modal">Close</button>
             </div>
-          </div>
           
-        </div>
+            </div>
+            
+          </div>
+          </div>
+        </Wrapper>     
       </div>
 
-
-      </Wrapper>
     )
   }
 }
