@@ -118,11 +118,13 @@ handleFileUpload() {
     try {
 
       await axios.post('http://localhost:3000/retrain/upload/confirm', {
+        filePath : this.state.results.filePath,
         accuracy: this.state.results.accuracy,
         recall: this.state.results.recall,
         f1: this.state.results.f1,
         model_name: this.state.results.modelName,
         model_path: this.state.results.modelPath,
+        dashboard : this.state.results.dashboard,
         stat : this.state.results.stat
       })
 

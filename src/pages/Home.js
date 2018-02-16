@@ -129,8 +129,8 @@ class Home extends Component {
               <CartesianGrid strokeDasharray="3 3"/>
               <Tooltip/>
               <Legend />
-              <Bar dataKey="noncholan" fill="#E975A0" />
-              <Bar dataKey="cholan" fill="#82ca9d" />
+              {/* <Bar dataKey="noncholan" fill="#E975A0" /> */}
+              <Bar dataKey="cholan" fill="#E975A0" />
             </BarChart>
             <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 
@@ -188,15 +188,19 @@ class Home extends Component {
                       </tr>
                       <tr>
                         <th scope="row">Recall</th>
-                        <td>{ !this.state.predictInfo.recall ? 0 : 
-                          this.state.predictInfo.recall.toFixed(2)
-                      }</td>
+                        <td>
+                          { !this.state.predictInfo.recall ? 0 : 
+                            this.state.predictInfo.recall.toFixed(2)
+                          }
+                        </td>
                       </tr>
                       <tr>
                         <th scope="row">F1</th>
-                        <td>{ !this.state.predictInfo.f1 ? 0 : 
-                          this.state.predictInfo.f1.toFixed(2)
-                      }</td>
+                        <td>
+                          { !this.state.predictInfo.f1 ? 0 : 
+                            this.state.predictInfo.f1.toFixed(2)
+                          }
+                        </td>
                       </tr>
                     </tbody>
                   </table>
