@@ -47,7 +47,7 @@ class Prediction extends Component {
     dataGender : [],
     stat : [],
     predictInfo : {},
-    recommends : ['กินอาหารดิบๆให้น้อยลง', 'พักผ่อนให้เพียงพอ']
+    recommends : []
   }
 
   updateValue = (e) => {
@@ -87,10 +87,28 @@ class Prediction extends Component {
         proba : res.data.results.proba
       })
 
-      if(smoke === 1){
+      if(age > 50){
+        this.setState({
+          recommends : [...this.state.recommends,"ควรตรวจสุขภาพทุกครึ่งปี"]
+        })
+      }
+      if(phy2_5_vs1 === 1){
         this.setState({
           recommends : [...this.state.recommends,"งดสูบบุหรี่"]
         })
+      }
+      if(phy6_2_5_vs1 == 1){
+        this.setState({
+          recommends : [...this.state.recommends,"ควรลดอาหารที่มีโซเดียมสูง"]
+        })
+      }
+
+      this.setState({
+        recommends : [...this.state.recommends,'รับประทานอาหารดิบๆให้น้อยลง','ควรออกกำลังกายอย่างสม่ำเสมอ','พักผ่อนให้เพียงพอ','อย่าลืมล้างมือก่อนรับประทานอาหาร']
+      })
+
+      if(this.state.proba > 0.7){
+        recommends : [...this.state.recommends,"ควรพบแพทย์หรือตรวจเพิ่มเติม"]
       }
 
      
@@ -256,7 +274,6 @@ class Prediction extends Component {
   }
 
   render() {
-    var recommends = ['งดสูบบุหรี่', 'กินอาหารดิบๆให้น้อยลง', 'พักผ่อนให้เพียงพอ'];
 
     return (
       <Wrapper>
@@ -290,55 +307,51 @@ class Prediction extends Component {
             <input type="text" class="form-control" id="weight" placeholder="Number Only" onChange={this.updateValue} />
           </div>
 
+      <RecommendStyle style={{fontSize:'16px'}}>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">ประวัติการสูบบุหรี่</label>
+            <label for="exampleFormControlSelect1">ประวัติการเป็นโรคความดันโลหิตสูง</label>
             <select class="form-control" id="phy6_2_5_vs1" onChange={this.updateValue}>
               <option>เคย</option>
               <option>ไม่เคย</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">phy6_2_5_vs1</label>
-            <select class="form-control" id="phy6_2_5_vs1" onChange={this.updateValue}>
-              <option>เคย</option>
-              <option>ไม่เคย</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">phy6_2_12_vs1</label>
+            <label for="exampleFormControlSelect1">ประวัติการเป็นโรคตับ</label>
               <select class="form-control" id="phy6_2_12_vs1" onChange={this.updateValue}>
                 <option>เคย</option>
                 <option>ไม่เคย</option>
               </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">phy9_3_6_vs1</label>
+            <label for="exampleFormControlSelect1">ประวัติการเป็นโรคหัวใจ</label>
             <select class="form-control" id="phy9_3_6_vs1" onChange={this.updateValue}>
               <option>เคย</option>
               <option>ไม่เคย</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">phy2_5_vs1</label>
+            <label for="exampleFormControlSelect1">ประวัติการสูบบุหรี่</label>
             <select class="form-control" id="phy2_5_vs1" onChange={this.updateValue}>
               <option>เคย</option>
               <option>ไม่เคย</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">phy8_1_3_vs1</label>
+            <label for="exampleFormControlSelect1">ประวัติการฉีดวัคซีนพิษสุนัขบ้า</label>
             <select class="form-control" id="phy8_1_3_vs1" onChange={this.updateValue}>
               <option>เคย</option>
               <option>ไม่เคย</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">phy5_5_vs1</label>
+            <label for="exampleFormControlSelect1">ประวัติการตั้งครรภ์</label>
             <select class="form-control" id="phy5_5_vs1" onChange={this.updateValue}>
               <option>เคย</option>
               <option>ไม่เคย</option>
             </select>
           </div>
+      </RecommendStyle>
+
           <div class="form-group">
             <label for="exampleFormControlSelect1">GammaGT</label>
             <input type="text" class="form-control" id="gammaGT" placeholder="Number Only" onChange={this.updateValue}/>
@@ -376,7 +389,7 @@ class Prediction extends Component {
           <div className="modal-content">
             <div className="modal-header">
               <h4>Recommendation</h4>
-              <button type="button" className="close" data-dismiss="modal">&times;</button>
+              <button type="button" onClick={() => {this.setState({recommends : [],proba : 0})}} className="close" data-dismiss="modal">&times;</button>
             </div>
             
             <RecommendStyle>
@@ -384,19 +397,21 @@ class Prediction extends Component {
               <div className="modal-body">
                 <p> <b>โอกาสเป็นมะเร็งท่อน้ำดี : { !this.state.proba == 0 ? (this.state.proba*100).toFixed(2) : 0}%  </b></p>
 
-                <ul>
+                <ul style={{fontSize:'35px'}}>
                   {this.state.recommends.map(function(recommend, index){
                       return <div key={ index }> <i style={{color : '#dfe81f'}} className="fa fa-star"></i> {recommend} </div>
                     })}
+                  {this.state.proba > 0.7 ? <div style={{color : 'red'}}>**ควรพบแพทย์หรือตรวจเพิ่มเติม**</div>: ''}
                 </ul>
-
+                  <div style={{fontSize:'20px'}}>หมายเหตุ : เป็นแค่การวินิฉัยในเบื้องต้นจากการวิเคราะห์ข้อมูลทางสถิติเท่านั้น</div> 
               </div>
 
             </RecommendStyle>
 
             <div className="modal-footer">
               <button type="button" className="btn btn-primary" onClick={() => this.SaveAsPDF()}>Save As PDF</button>
-              <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-danger" 
+                onClick={() => {this.setState({recommends : [],proba : 0})}} data-dismiss="modal">Close</button>
             </div>
           </div>
           
