@@ -9,28 +9,45 @@ import Upload from './pages/Upload'
 import Prediction from './pages/Prediction'
 import Switch from 'react-router-dom/Switch';
 
+/* Redux part */
+
 const Wrapper = styled.div`
   .container-fluid {
     margin-top: 50px;
   }
 `;
 
-export default class App extends Component {
+class App extends Component {
+
   render() {
+
+    var token = localStorage.getItem('token')
+    console.log("Token value")
+    console.log(token)
+
     return (
-      <Wrapper>
           <div className="container-fluid">
               <Switch>
                 <Route exact path="/" component = {Login} />
-                <div className="content-wrapper">
-                    <Navbar />
-                    <Route exact path="/dashboard" component={Home} />
-                    <Route exact path="/upload" component={Upload} />
-                    <Route exact path="/prediction" component={Prediction} />
-                </div>
+                <Wrapper>
+                  <div className="container-fluid">
+                    <div className="content-wrapper">
+                        <Navbar />
+                        <Route exact path="/dashboard" component={Home} />
+                        <Route exact path="/upload" component={Upload} />
+                        <Route exact path="/prediction" component={Prediction} />
+                    </div>
+                  </div>
+                </Wrapper>
               </Switch>
           </div>
-      </Wrapper>
     )
   }
 }
+
+// const mapStateToProps = (state) => {
+//   return state
+// }
+
+// export default connect(mapStateToProps)(App)
+export default App

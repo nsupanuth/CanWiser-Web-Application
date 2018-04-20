@@ -9,6 +9,7 @@ const Header = styled.header`
 
   text-align: center;
   color: black;
+  
   .text {
     margin: auto;
     margin-top: 30px;
@@ -86,13 +87,20 @@ class Login extends Component {
         token: res.data.token
       })
 
+      localStorage.setItem("username",username)
+      localStorage.setItem("token",this.state.token)
+      localStorage.setItem("role",res.data.role)
+
       await dispatch(loginToken(username, this.state.token, res.data.role))
 
+  
+      /*
       console.log("Check value after dispatching")
 
       console.log(this.props.username)
       console.log(this.props.loginToken)
       console.log(this.props.role)
+      */
 
       if (this.props.role === 'Doctor')
         this.props.history.push("/dashboard")
@@ -113,9 +121,9 @@ class Login extends Component {
     // console.log(this.state)
 
     return (
-      <div>
+      <div style = {{margin:'0px'}}>
         <Header class="masthead">
-          <div class="container">
+          <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
                 <div class="text">

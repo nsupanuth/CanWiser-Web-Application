@@ -5,7 +5,7 @@ import { ResponsiveContainer,BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip
 import axios from 'axios'
 import styled from 'styled-components';
 
-import { Area } from '../charts/Charts'
+// import { Area } from '../charts/Charts'
 import jsPDF from 'jspdf'
 
 
@@ -31,6 +31,7 @@ class Home extends Component {
      dataAge : [],
      dataGender : [],
      stat : [],
+     lastUpdate : '',
      predictInfo : {}
   }
 
@@ -41,7 +42,8 @@ class Home extends Component {
         console.log(res)
         this.setState({
           dataAge : res.data.age,
-          dataGender : res.data.gender
+          dataGender : res.data.gender,
+          lastUpdate : res.data.date
         })
 
       })
@@ -115,7 +117,7 @@ class Home extends Component {
 
         </div>
         <div className="card-footer-info small text-muted">* Normal range of GammaGT(9-48 U/L), Alkaline phosphatase(44-147 IU/L), ALT(7-56 U/L), CEA(equal or less than 3ng/mL), CA19-9(0-37 U/ml)</div>
-          <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          <div className="card-footer small text-muted">Updated {this.state.lastUpdate}</div>
         </div>      
 
 
@@ -132,7 +134,7 @@ class Home extends Component {
               {/* <Bar dataKey="noncholan" fill="#E975A0" /> */}
               <Bar dataKey="cholan" fill="#E975A0" />
             </BarChart>
-            <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            <div className="card-footer small text-muted">Updated {this.state.lastUpdate}</div>
 
         </div>
 
@@ -153,7 +155,7 @@ class Home extends Component {
                 </PieChart>
               </div>
   
-              <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+              <div class="card-footer small text-muted">Updated {this.state.lastUpdate}</div>
                 </div>
               </div>
             </div>
@@ -206,7 +208,7 @@ class Home extends Component {
                   </table>
                 </div>
     
-                <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                <div className="card-footer small text-muted">Updated {this.state.lastUpdate}</div>
                   </div>
                 </div>
             </div>

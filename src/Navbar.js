@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Profile from './img/profile.jpg';
 
 import { connect } from 'react-redux'
+import { loginToken } from './reducer/action.js'
 
 const Nav = styled.div`
 
@@ -48,6 +49,24 @@ font-family: 'Montserrat', sans-serif;
 `
 
 class Navbar extends Component {
+
+  handleLogout(){
+    localStorage.clear()
+  }
+
+  componentDidMount(){
+    if(this.props.username === '' && localStorage.getItem('token') != null){
+
+          const { dispatch } = this.props
+    
+          var username = localStorage.getItem('username')
+          var token = localStorage.getItem('token')
+          var role = localStorage.getItem('role')
+          
+          dispatch(loginToken(username, token, role))
+        }
+  }
+
   render() {
     return (
       <Nav>
@@ -102,8 +121,9 @@ class Navbar extends Component {
             <ul className="navbar-nav ml-auto">
              
               <li className="nav-item">
-                <a className="nav-link" data-toggle="modal" data-target="#exampleModal">
-                  <i className="fa fa-fw fa-sign-out"></i>Logout</a>
+                  <Link className="nav-link" to="/" onClick = {() => this.handleLogout()}>
+                    <i className="fa fa-fw fa-sign-out"></i>Logout
+                  </Link>
               </li>
             </ul>
           </div>
@@ -119,4 +139,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default  connect(mapStateToProps)(Navbar)
+export default connect(mapStateToProps)(Navbar)
