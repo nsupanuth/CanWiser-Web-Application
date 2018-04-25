@@ -84,9 +84,9 @@ class Navbar extends Component {
 
             { ((this.props.role === 'Doctor') && (this.props.loginToken != '')) ?
               <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <Link className="nav-link" to="/dashboard">
-                  <i className="fa fa-fw fa-dashboard"></i>
-                  <span className="nav-link-text">Dashboard</span>
+                 <Link className="nav-link" to="/dashboard">
+                    <i className="fa fa-fw fa-dashboard"></i>
+                    <span className="nav-link-text">Dashboard</span>
                  </Link>
               </li>
               : ''

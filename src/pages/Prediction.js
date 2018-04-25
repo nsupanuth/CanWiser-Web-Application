@@ -294,11 +294,11 @@ class Prediction extends Component {
 
     return (
     <div>
-      {/* <ol className="breadcrumb">
+      <ol className="breadcrumb">
         <li className="breadcrumb-item active">Prediction</li>
-      </ol> */}
+      </ol>
       <Wrapper>
-        <h1 style={{ marginTop: 100 }}>Fill Your Data Here !</h1>
+        <h1 style={{ marginTop: 30 }}>Fill Your Data Here !</h1>
         <form>
           <div class="form-group">
             <label for="exampleFormControlSelect1">Patient Number</label>
