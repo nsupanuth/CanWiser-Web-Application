@@ -414,7 +414,7 @@ class Prediction extends Component {
             <input type="text" class="form-control" id="CEA" placeholder="Number Only" onChange={this.updateValue}/>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">CA199</label>
+            <label for="exampleFormControlSelect1">CA19-9</label>
             <input type="text" class="form-control" id="CA199" placeholder="Number Only" onChange={this.updateValue}/>
           </div>
 
