@@ -57,7 +57,7 @@ class Prediction extends Component {
     ALT: 0,
     CEA: 0,
     CA199: 0,
-    proba : 0,
+    proba : -1,
     dataAge : [],
     dataGender : [],
     stat : [],
@@ -135,6 +135,7 @@ class Prediction extends Component {
               recommendCluster : res.data.results
             })
 
+            /* Test printing recommend cluster state value */ 
             console.log("Recommendation cluster")
             console.log(this.state.recommendCluster)
             console.log(this.state.recommendCluster[0])
@@ -433,31 +434,37 @@ class Prediction extends Component {
           <div className="modal-content">
             <div className="modal-header">
               <h4>Recommendation</h4>
-              <button type="button" onClick={() => {this.setState({recommends : [],proba : 0})}} className="close" data-dismiss="modal">&times;</button>
+              <button type="button" onClick={() => {this.setState({recommends : [],proba : -1})}} className="close" data-dismiss="modal">&times;</button>
             </div>
             
-            <RecommendStyle>
+            {this.state.proba == -1 ? <div style = {{margin:100}}>
+              <img src={require('../img/loading.gif')} />
+            </div> :
 
-              <div className="modal-body">
-                <p> <b>โอกาสเป็นมะเร็งท่อน้ำดี : { !this.state.proba == 0 ? (this.state.proba*100).toFixed(2) : 0}%  </b></p>
+             <RecommendStyle>
 
-                <ul style={{fontSize:'35px'}}>
-                  {this.state.recommends.map(function(recommend, index){
-                      return <div key={ index }> <i style={{color : '#dfe81f'}} className="fa fa-star"></i> {recommend} </div>
-                    })}
-                  {this.state.proba > 0.7 ? <div style={{color : 'red'}}>**ควรพบแพทย์หรือตรวจเพิ่มเติม**</div>: ''}
-                </ul>
-                  <div style={{fontSize:'20px'}}>หมายเหตุ : เป็นแค่การวินิฉัยในเบื้องต้นจากการวิเคราะห์ข้อมูลทางสถิติเท่านั้น</div> 
-              </div>
-        
-            </RecommendStyle>
+             <div className="modal-body">
+               <p> <b>โอกาสเป็นมะเร็งท่อน้ำดี : { !this.state.proba == 0 ? (this.state.proba*100).toFixed(2) : 0}%  </b></p>                                                                                                                                                                                                                                                                                                                                                                                                     
 
-                
+               <ul style={{fontSize:'35px'}}>
+                 {this.state.recommends.map(function(recommend, index){
+                     return <div key={ index }> <i style={{color : '#dfe81f'}} className="fa fa-star"></i> {recommend} </div>
+                   })}
+                 {this.state.proba > 0.7 ? <div style={{color : 'red'}}>**ควรพบแพทย์หรือตรวจเพิ่มเติม**</div>: ''}
+               </ul>
+                 <div style={{fontSize:'20px'}}>หมายเหตุ : เป็นแค่การวินิฉัยในเบื้องต้นจากการวิเคราะห์ข้อมูลทางสถิติเท่านั้น</div> 
+             </div>
+       
+           </RecommendStyle>
+
+          }          
 
             <div className="modal-footer">
-              <button type="button" className="btn btn-primary" onClick={() => this.SaveAsPDF()}>Save As PDF</button>
+              { this.state.proba != -1 &&
+                <button type="button" className="btn btn-primary" onClick={() => this.SaveAsPDF()}>Save As PDF</button>
+              }
               <button type="button" className="btn btn-danger" 
-                onClick={() => {this.setState({recommends : [],proba : 0})}} data-dismiss="modal">Close</button>
+                onClick={() => {this.setState({recommends : [],proba : -1})}} data-dismiss="modal">Close</button>
             </div>
           
             </div>
