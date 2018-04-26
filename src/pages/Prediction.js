@@ -130,6 +130,16 @@ class Prediction extends Component {
           alkPhosphatase, gammaGT, ALT, CEA, CA199
         }).then(res => {
           console.log(res)
+          if(res.data.status === 'success'){
+            this.setState({
+              recommendCluster : res.data.results
+            })
+
+            console.log("Recommendation cluster")
+            console.log(this.state.recommendCluster)
+            console.log(this.state.recommendCluster[0])
+
+          }
         }).catch(function (error){
           console.log(error)
         })
