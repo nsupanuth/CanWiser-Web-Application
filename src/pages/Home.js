@@ -5,7 +5,6 @@ import { ResponsiveContainer,BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip
 import axios from 'axios'
 import styled from 'styled-components';
 
-// import { Area } from '../charts/Charts'
 import jsPDF from 'jspdf'
 
 

@@ -62,7 +62,8 @@ class Prediction extends Component {
     dataGender : [],
     stat : [],
     predictInfo : {},
-    recommends : []
+    recommends : [],
+    recommendCluster : []
   }
 
   updateValue = (e) => {
@@ -122,11 +123,23 @@ class Prediction extends Component {
         recommends : [...this.state.recommends,'รับประทานอาหารดิบๆให้น้อยลง','ควรออกกำลังกายอย่างสม่ำเสมอ','พักผ่อนให้เพียงพอ','อย่าลืมล้างมือก่อนรับประทานอาหาร']
       })
 
+      if(this.state.proba > 0.5){
+        axios.post('http://localhost:3000/predict/test/clustering', {
+          gender, age, height, weight,
+          phy6_2_5_vs1, phy6_2_12_vs1, phy9_3_6_vs1, phy2_5_vs1, phy8_1_3_vs1, phy5_5_vs1,
+          alkPhosphatase, gammaGT, ALT, CEA, CA199
+        }).then(res => {
+          console.log(res)
+        }).catch(function (error){
+          console.log(error)
+        })
+
+      }
+      
       if(this.state.proba > 0.7){
         recommends : [...this.state.recommends,"ควรพบแพทย์หรือตรวจเพิ่มเติม"]
       }
 
-     
     })
     .catch(function (error) {
       console.log(error);
