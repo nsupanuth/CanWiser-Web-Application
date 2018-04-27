@@ -13,5 +13,18 @@ const loginToken = (username,token,role) => {
     }
 }
 
-export { loginToken }   
+const facebookLoginAuthen = (res) => {
+
+    console.log(res)
+
+    // dispatch ({
+    //     type : 'USER_LOGIN',
+    //     payload : {
+    //         facebookID : res.id,
+    //         name : res.name
+    //     }
+    // })
+}
+
+export { loginToken,facebookLoginAuthen }   
 

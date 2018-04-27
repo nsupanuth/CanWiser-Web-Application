@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 
 import Profile from './img/profile.jpg';
+import UserProfile from './img/nuthink.jpg'
 
 import { connect } from 'react-redux'
 import { loginToken } from './reducer/action.js'
@@ -79,7 +80,11 @@ class Navbar extends Component {
             <ul className="navbar-nav navbar-sidenav" id="exampleAccordion">
 
             <li className="nav-item profile-img" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <img className="rounded-circle" alt="profile" src={Profile} />
+                {/* { this.props.role === 'Doctor' ?
+                  <img className="rounded-circle" alt="profile" src={Profile} /> :
+                  <img className="rounded-circle" alt="profile" src={UserProfile} />
+                } */}
+                <img className="rounded-circle" alt="profile" src={Profile} /> 
             </li>
 
             { ((this.props.role === 'Doctor') && (this.props.loginToken != '')) ?

@@ -75,19 +75,19 @@ class Home extends Component {
     
     return (
       <div>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active">My Dashboard</li>
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item active">My Dashboard</li>
         </ol>
 
       <Wrapper>
 
-      <div class="card mb-3">
-          <div class="card-header">
+      <div className="card mb-3">
+          <div className="card-header">
              Summary
           </div>
-          <div class="card-body">
+          <div className="card-body">
 
-        <table class="table">
+        <table className="table">
           <tr> 
             <th></th>
               {colName.map(function(col, index){
@@ -154,7 +154,7 @@ class Home extends Component {
                 </PieChart>
               </div>
   
-              <div class="card-footer small text-muted">Updated {this.state.lastUpdate}</div>
+              <div className="card-footer small text-muted">Updated {this.state.lastUpdate}</div>
                 </div>
               </div>
             </div>

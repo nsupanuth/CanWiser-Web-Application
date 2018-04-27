@@ -5,6 +5,8 @@ import { loginToken } from '../reducer/action.js'
 import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components';
 
+import FacebookLogin from '../components/FacebookLogin.jsx'
+
 const Header = styled.header`
 
   text-align: center;
@@ -122,12 +124,12 @@ class Login extends Component {
 
     return (
       <div style = {{margin:'0px'}}>
-        <Header class="masthead">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="text">
-                  <i class="fa fa-user-circle-o fa-5x font-color" aria-hidden="true"></i>
+        <Header className="masthead">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-md-12">
+                <div className="text">
+                  <i className="fa fa-user-circle-o fa-5x font-color" aria-hidden="true"></i>
                   <h1 style={{ fontFamily: 'Catamaran' }}>Sign In</h1>
                   <Form>
                     <div className="form-group">
@@ -143,6 +145,11 @@ class Login extends Component {
                     >
                       Login
                     </button>
+
+                    {/* <div> - or - </div>
+
+                    <FacebookLogin /> */}
+
                   </Form>
                 </div>
               </div>

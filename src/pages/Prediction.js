@@ -324,104 +324,104 @@ class Prediction extends Component {
       <Wrapper>
         <h1 style={{ marginTop: 30 }}>Fill Your Data Here !</h1>
         <form>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Patient Number</label>
-            <input type="text" class="form-control" id="patientNo" placeholder="Number Only" onChange={this.updateValue} />
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">Patient Number</label>
+            <input type="text" className="form-control" id="patientNo" placeholder="Number Only" onChange={this.updateValue} />
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Patient Name</label>
-            <input type="text" class="form-control" id="patientName" onChange={this.updateValue} />
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">Patient Name</label>
+            <input type="text" className="form-control" id="patientName" onChange={this.updateValue} />
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Gender</label>
-            <select class="form-control" id="gender" onChange={this.updateValue}>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">Gender</label>
+            <select className="form-control" id="gender" onChange={this.updateValue}>
               <option>Male</option>
               <option>Female</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Age</label>
-            <input type="text" class="form-control" id="age" placeholder="Number Only" onChange={this.updateValue} />
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">Age</label>
+            <input type="text" className="form-control" id="age" placeholder="Number Only" onChange={this.updateValue} />
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Height</label>
-            <input type="text" class="form-control" id="height" placeholder="Number Only" onChange={this.updateValue} />
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">Height</label>
+            <input type="text" className="form-control" id="height" placeholder="Number Only" onChange={this.updateValue} />
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Weight</label>
-            <input type="text" class="form-control" id="weight" placeholder="Number Only" onChange={this.updateValue} />
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">Weight</label>
+            <input type="text" className="form-control" id="weight" placeholder="Number Only" onChange={this.updateValue} />
           </div>
 
       <RecommendStyle style={{fontSize:'16px'}}>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">ประวัติการเป็นโรคความดันโลหิตสูง</label>
-            <select class="form-control" id="phy6_2_5_vs1" onChange={this.updateValue}>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">ประวัติการเป็นโรคความดันโลหิตสูง</label>
+            <select className="form-control" id="phy6_2_5_vs1" onChange={this.updateValue}>
               <option>เคย</option>
               <option>ไม่เคย</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">ประวัติการเป็นโรคตับ</label>
-              <select class="form-control" id="phy6_2_12_vs1" onChange={this.updateValue}>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">ประวัติการเป็นโรคตับ</label>
+              <select className="form-control" id="phy6_2_12_vs1" onChange={this.updateValue}>
                 <option>เคย</option>
                 <option>ไม่เคย</option>
               </select>
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">ประวัติการเป็นโรคหัวใจ</label>
-            <select class="form-control" id="phy9_3_6_vs1" onChange={this.updateValue}>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">ประวัติการเป็นโรคหัวใจ</label>
+            <select className="form-control" id="phy9_3_6_vs1" onChange={this.updateValue}>
               <option>เคย</option>
               <option>ไม่เคย</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">ประวัติการสูบบุหรี่</label>
-            <select class="form-control" id="phy2_5_vs1" onChange={this.updateValue}>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">ประวัติการสูบบุหรี่</label>
+            <select className="form-control" id="phy2_5_vs1" onChange={this.updateValue}>
               <option>เคย</option>
               <option>ไม่เคย</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">ประวัติการฉีดวัคซีนพิษสุนัขบ้า</label>
-            <select class="form-control" id="phy8_1_3_vs1" onChange={this.updateValue}>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">ประวัติการฉีดวัคซีนพิษสุนัขบ้า</label>
+            <select className="form-control" id="phy8_1_3_vs1" onChange={this.updateValue}>
               <option>เคย</option>
               <option>ไม่เคย</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">ประวัติการตั้งครรภ์</label>
-            <select class="form-control" id="phy5_5_vs1" onChange={this.updateValue}>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">ประวัติการตั้งครรภ์</label>
+            <select className="form-control" id="phy5_5_vs1" onChange={this.updateValue}>
               <option>เคย</option>
               <option>ไม่เคย</option>
             </select>
           </div>
       </RecommendStyle>
 
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">GammaGT</label>
-            <input type="text" class="form-control" id="gammaGT" placeholder="Number Only" onChange={this.updateValue}/>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">GammaGT</label>
+            <input type="text" className="form-control" id="gammaGT" placeholder="Number Only" onChange={this.updateValue}/>
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">alkPhosphatase</label>
-            <input type="text" class="form-control" id="alkPhosphatase" placeholder="Number Only" onChange={this.updateValue}/>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">alkPhosphatase</label>
+            <input type="text" className="form-control" id="alkPhosphatase" placeholder="Number Only" onChange={this.updateValue}/>
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">ALT</label>
-            <input type="text" class="form-control" id="ALT" placeholder="Number Only" onChange={this.updateValue}/>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">ALT</label>
+            <input type="text" className="form-control" id="ALT" placeholder="Number Only" onChange={this.updateValue}/>
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">CEA</label>
-            <input type="text" class="form-control" id="CEA" placeholder="Number Only" onChange={this.updateValue}/>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">CEA</label>
+            <input type="text" className="form-control" id="CEA" placeholder="Number Only" onChange={this.updateValue}/>
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">CA19-9</label>
-            <input type="text" class="form-control" id="CA199" placeholder="Number Only" onChange={this.updateValue}/>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">CA19-9</label>
+            <input type="text" className="form-control" id="CA199" placeholder="Number Only" onChange={this.updateValue}/>
           </div>
 
             <button data-toggle="modal" data-target="#myModal"
               onClick={() => this.handlePostForRecommend()}
               type="button"
-              class="btn btn-primary">
+              className="btn btn-primary">
               Submit
           </button>
           
