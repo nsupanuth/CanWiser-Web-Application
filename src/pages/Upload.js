@@ -125,7 +125,8 @@ handleFileUpload() {
         model_name: this.state.results.modelName,
         model_path: this.state.results.modelPath,
         dashboard : this.state.results.dashboard,
-        stat : this.state.results.stat
+        stat : this.state.results.stat,
+        features : this.state.results.features
       })
 
       this.setState({
