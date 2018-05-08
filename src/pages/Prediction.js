@@ -92,7 +92,13 @@ class Prediction extends Component {
       phy6_2_5_vs1,phy6_2_12_vs1,phy9_3_6_vs1,phy2_5_vs1,phy8_1_3_vs1,phy5_5_vs1,
       alkPhosphatase,gammaGT,ALT,CEA,CA199} = this.state
 
-    axios.post('http://localhost:3000/predict/test/cholan', {
+    /**
+     * 
+     * Fixed Decision Tree --> http://localhost:3000/predict/test/cholan 
+     * 
+     * **/
+      
+    axios.post('http://localhost:3000/predict/adaptive/cholan', {
       patientNo, gender, age, height, weight,
       phy6_2_5_vs1, phy6_2_12_vs1, phy9_3_6_vs1, phy2_5_vs1, phy8_1_3_vs1, phy5_5_vs1,
       alkPhosphatase, gammaGT, ALT, CEA, CA199
