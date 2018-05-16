@@ -475,7 +475,9 @@ class Prediction extends Component {
                   {this.state.recommendCluster.map(function(recommend, index){
                     return <tr>
                       <th scope="row"> {index} </th>
-                      <img src={recommend.Gender ? Girl : Boy} class="img-fluid" alt="Responsive image" width="30%"/>
+                      {recommend.Gender  == 1 ?  <img src={Boy} class="img-fluid" alt="Responsive image" width="30%"/>
+                        : <img src={Girl} class="img-fluid" alt="Responsive image" width="30%"/>
+                      }
                       <td>
                         <ul>
                         <li>{recommend.Gender}</li>
