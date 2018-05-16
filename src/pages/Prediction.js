@@ -3,6 +3,9 @@ import axios from 'axios'
 import styled from 'styled-components';
 import jsPDF from 'jspdf'
 
+import Boy from '../img/boy.png'
+import Girl from '../img/girl.png'
+
 const Wrapper = styled.div`
 
   width: 70%;
@@ -129,7 +132,7 @@ class Prediction extends Component {
         recommends : [...this.state.recommends,'รับประทานอาหารดิบๆให้น้อยลง','ควรออกกำลังกายอย่างสม่ำเสมอ','พักผ่อนให้เพียงพอ','อย่าลืมล้างมือก่อนรับประทานอาหาร']
       })
 
-      if(this.state.proba > 0.5){
+      if(this.state.proba){
         axios.post('http://localhost:3000/predict/test/clustering', {
           gender, age, height, weight,
           phy6_2_5_vs1, phy6_2_12_vs1, phy9_3_6_vs1, phy2_5_vs1, phy8_1_3_vs1, phy5_5_vs1,
@@ -450,15 +453,42 @@ class Prediction extends Component {
              <RecommendStyle>
 
              <div className="modal-body">
-               <p> <b>โอกาสเป็นมะเร็งท่อน้ำดี : { !this.state.proba == 0 ? (this.state.proba*100).toFixed(2) : 0}%  </b></p>                                                                                                                                                                                                                                                                                                                                                                                                     
+               <p style={{fontSize: '20px'}}> <b>โอกาสเป็นมะเร็งท่อน้ำดี : { !this.state.proba == 0 ? (this.state.proba*100).toFixed(2) : 0}%  </b></p>                                                                                                                                                                                                                                                                                                                                                                                                     
 
-               <ul style={{fontSize:'35px'}}>
+               <ul style={{fontSize:'15px'}}>
                  {this.state.recommends.map(function(recommend, index){
                      return <div key={ index }> <i style={{color : '#dfe81f'}} className="fa fa-star"></i> {recommend} </div>
                    })}
                  {this.state.proba > 0.7 ? <div style={{color : 'red'}}>**ควรพบแพทย์หรือตรวจเพิ่มเติม**</div>: ''}
                </ul>
                  <div style={{fontSize:'20px'}}>หมายเหตุ : เป็นแค่การวินิฉัยในเบื้องต้นจากการวิเคราะห์ข้อมูลทางสถิติเท่านั้น</div> 
+
+                 <table class="table" style={{width: '80%', fontSize: 15, margin: 'auto'}}>
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Gender</th>
+                      <th scope="col">Behaviors</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {this.state.recommendCluster.map(function(recommend, index){
+                    return <tr>
+                      <th scope="row"> {index} </th>
+                      <img src={Boy} class="img-fluid" alt="Responsive image" width="30%"/>
+                      <td>
+                        <ul>
+                          <li>{recommend.phy6_2_5_vs1}</li>
+                          <li>{recommend.phy6_2_5_vs1}</li>
+                          <li>{recommend.phy6_2_5_vs1}</li>
+                          <li>{recommend.phy6_2_5_vs1}</li>
+                        </ul>
+                      </td>
+                    </tr>
+                  })}
+
+                  </tbody>
+                </table>
              </div>
        
            </RecommendStyle>
