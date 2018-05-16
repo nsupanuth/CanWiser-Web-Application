@@ -143,7 +143,6 @@ class Prediction extends Component {
             this.setState({
               recommendCluster : res.data.results
             })
-
             /* Test printing recommend cluster state value */ 
             console.log("Recommendation cluster")
             console.log(this.state.recommendCluster)
@@ -457,6 +456,7 @@ class Prediction extends Component {
 
                <ul style={{fontSize:'15px'}}>
                  {this.state.recommends.map(function(recommend, index){
+                     console.log(recommend.Gender)
                      return <div key={ index }> <i style={{color : '#dfe81f'}} className="fa fa-star"></i> {recommend} </div>
                    })}
                  {this.state.proba > 0.7 ? <div style={{color : 'red'}}>**ควรพบแพทย์หรือตรวจเพิ่มเติม**</div>: ''}
@@ -475,13 +475,16 @@ class Prediction extends Component {
                   {this.state.recommendCluster.map(function(recommend, index){
                     return <tr>
                       <th scope="row"> {index} </th>
-                      <img src={Boy} class="img-fluid" alt="Responsive image" width="30%"/>
+                      <img src={recommend.Gender ? Girl : Boy} class="img-fluid" alt="Responsive image" width="30%"/>
                       <td>
                         <ul>
+                        <li>{recommend.Gender}</li>
                           <li>{recommend.phy6_2_5_vs1}</li>
-                          <li>{recommend.phy6_2_5_vs1}</li>
-                          <li>{recommend.phy6_2_5_vs1}</li>
-                          <li>{recommend.phy6_2_5_vs1}</li>
+                          <li>{recommend.phy6_2_12_vs1}</li>
+                          <li>{recommend.phy9_3_6_vs1}</li>
+                          <li>{recommend.phy2_5_vs1}</li>
+                          <li>{recommend.phy8_1_3_vs1}</li>
+                          <li>{recommend.phy5_5_vs1}</li>
                         </ul>
                       </td>
                     </tr>

@@ -59,12 +59,12 @@ const ShowScoreNew = styled.div`
   margin: auto;
 
   .borderless {
-    width: 70%;
+    width: 50%;
     margin: auto;
   }
 
   .borderless td, .borderless th{
-    border: none;
+    // border: none;
   }
   `
 
@@ -84,7 +84,7 @@ class Home extends Component {
     console.log(this.refs)
   }
 
-handleFileUpload() {
+  handleFileUpload() {
 
     const formData = new FormData(this.refs.myForm)
     const config = {
@@ -109,22 +109,22 @@ handleFileUpload() {
   }
 
   async handleModelCancle() {
-    
+
     try {
-  
-      const res = await axios.post('http://localhost:3000/retrain/upload/cancel',{
+
+      const res = await axios.post('http://localhost:3000/retrain/upload/cancel', {
         pathName: this.state.results.modelPath
       })
 
       console.log(res.data.status)
       this.setState({
-        results : ''
+        results: ''
       })
 
     } catch (error) {
       console.log(error)
     }
-   
+
   }
 
   async handleModelSave() {
@@ -132,19 +132,19 @@ handleFileUpload() {
     try {
 
       await axios.post('http://localhost:3000/retrain/upload/confirm', {
-        filePath : this.state.results.filePath,
+        filePath: this.state.results.filePath,
         accuracy: this.state.results.accuracy,
         recall: this.state.results.recall,
         f1: this.state.results.f1,
         model_name: this.state.results.modelName,
         model_path: this.state.results.modelPath,
-        dashboard : this.state.results.dashboard,
-        stat : this.state.results.stat,
-        features : this.state.results.features
+        dashboard: this.state.results.dashboard,
+        stat: this.state.results.stat,
+        features: this.state.results.features
       })
 
       this.setState({
-        results : ''
+        results: ''
       })
 
 
@@ -164,78 +164,135 @@ handleFileUpload() {
         <ShowUpload>
           <h1 style={this.state.results ? { marginTop: 10 } : { marginTop: 200 }}>{this.state.results ? '' : 'Upload Your Data Here !'}</h1>
 
-          {this.state.results ? 
-          <ShowScoreNew>
-          <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">Model Name</th>
-                <th scope="col">F1</th>
-                <th scope="col">Accuracy</th>
-                <th scope="col">Recall</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{this.state.results.modelName}</td>
-                <td>{this.state.results.f1.toFixed(2)}</td>
-                <td>{this.state.results.accuracy.toFixed(2)}</td>
-                <td>{this.state.results.recall.toFixed(2)}</td>
-              </tr>
-            </tbody>
-          </table>
+          {this.state.results ?
+            <ShowScoreNew>
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Model Name</th>
+                    <th scope="col">F1</th>
+                    <th scope="col">Accuracy</th>
+                    <th scope="col">Recall</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{this.state.results.modelName}</td>
+                    <td>{this.state.results.f1.toFixed(2)}</td>
+                    <td>{this.state.results.accuracy.toFixed(2)}</td>
+                    <td>{this.state.results.recall.toFixed(2)}</td>
+                  </tr>
+                </tbody>
+              </table>
 
-          <table class="table text-center borderless">
-            <tbody>
-              <tr>
-                <td></td>
-                <td class="col-xs-4">
-                  <strong> True Positive </strong>
-                </td>
-                <td class="col-xs-4">
-                  <strong> True Negative </strong>
-                </td>
-              </tr>
-              <tr>
-                <td class="col-xs-4">
-                  <strong> Predicted Positive </strong>
-                </td>
-                <td class="col-xs-4">
-                  <div id="true-positive" class="has-success" data-toggle="popover">
-                    <label class="sr-only" for="TruePositive"></label>
-                    <input type="number" class="form-control text-center" placeholder="True Positive" ng-model="data.TP" ng-change="update()"/>
-                        </div>
+              <table class="table table-bordered table-light borderless">
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td class="col-xs-4">
+                      <strong> True Positive </strong>
                     </td>
-                  <td class="col-xs-4">
-                    <div id="false-positive" class="has-warning" data-toggle="popover">
-                      <label class="sr-only" for="FalsePositive"></label>
-                      <input type="number" class="form-control text-center" placeholder="False Positive" ng-model="data.FP" ng-change="update()"/>
-                        </div>
+                    <td class="col-xs-4">
+                      <strong> True Negative </strong>
                     </td>
-                </tr>
+                  </tr>
+                  <tr>
+                    <td class="col-xs-4">
+                      <strong> Predicted Positive </strong>
+                    </td>
+                    <td class="col-xs-4">
+                      <div id="true-positive" class="has-success" data-toggle="popover">
+                        <p>10</p>
+                      </div>
+                    </td>
+                    <td class="col-xs-4">
+                      <div id="false-positive" class="has-warning" data-toggle="popover">
+                        <p>10</p>
+                      </div>
+                    </td>
+                  </tr>
                   <tr>
                     <td class="col-xs-4">
                       <strong> Predicted Negative </strong>
                     </td>
                     <td class="col-xs-4">
                       <div id="false-negative" class="has-warning" data-toggle="popover">
-                        <label class=" sr-only" for="FalseNegative">
-                        </label>
-                        <input type="number" class="form-control text-center" placeholder="False Negative" ng-model="data.FN" ng-change="update()"/>
-                        </div>
+                        <p>10</p>
+                      </div>
                     </td>
-                      <td class="col-xs-4">
-                        <div id="true-negative" class="has-success" data-toggle="popover">
-                          <label class="sr-only" for="TrueNegative"></label>
-                          <input type="number" class="form-control text-center" placeholder="True Negative" ng-model="data.TN" ng-change="update()"/>
-                        </div>
+                    <td class="col-xs-4">
+                      <div id="true-negative" class="has-success" data-toggle="popover">
+                        <p>10</p>
+                      </div>
                     </td>
-                </tr>
-            </tbody>
-        </table>
+                  </tr>
+                </tbody>
+              </table>
 
-          </ShowScoreNew>
-          : ''}
+              <table class="table" style={{marginTop: 50}}>
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Measure</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Sensitivity</td>
+                    <td>100</td>
+                    <td>Sensitivity or True Positive Rate (TPR) </td>
+                  </tr>
+                  <tr>
+                    <td>Specificity</td>
+                    <td>100</td>
+                    <td>Specificity (SPC) or True Negative Rate (TNR)  </td>
+                  </tr>
+                  <tr>
+                    <td>Precision</td>
+                    <td>100</td>
+                    <td>Precision or Positive Predictive Value (PPV)</td>
+                  </tr>
+                  <tr>
+                    <td>Negative Predictive Value </td>
+                    <td>100</td>
+                    <td>Negative Predictive Value (NPV) </td>
+                  </tr>
+                  <tr>
+                    <td>False Positive Rate </td>
+                    <td>100</td>
+                    <td>Fall-out or False Positive Rate (FPR) </td>
+                  </tr>
+                  <tr>
+                    <td>False Discovery Rate </td>
+                    <td>100</td>
+                    <td>False Discovery Rate (FDR)</td>
+                  </tr>
+                  <tr>
+                    <td>False Negative Rate </td>
+                    <td>100</td>
+                    <td>Miss Rate or False Negative Rate (FNR) </td>
+                  </tr>
+                  <tr>
+                    <td>Accuracy </td>
+                    <td>100</td>
+                    <td>Accuracy (ACC)  </td>
+                  </tr>
+                  <tr>
+                    <td>F1 Score </td>
+                    <td>100</td>
+                    <td>F1 Score (F1)  </td>
+                  </tr>
+                  <tr>
+                    <td>Matthews Correlation Coefficient </td>
+                    <td>100</td>
+                    <td>Matthews Correlation Coefficient (MCC) </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </ShowScoreNew>
+            : ''}
 
           {/* {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.f1.toFixed(2) : ''}</p><p className="text">{this.state.results ? 'F1' : ''}</p></ShowScore> : ''}
           {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.accuracy.toFixed(2) : ''}</p><p className="text">{this.state.results ? 'Accuracy' : ''}</p></ShowScore> : ''}
@@ -245,9 +302,11 @@ handleFileUpload() {
             <input ref="myFile" name="xxx" id="file" onChange={() => this.handleFileChange()} type="file" style={{ display: 'none' }} />
             <label htmlFor="file"><span style={{ marginTop: 100 }}>Choose a file</span></label> {this.state.filename}
           </form>
-          {this.state.results ? <button type = "button" style = {{margin : '20px'}} onClick={() => this.handleModelCancle()} className="btn btn-danger">Cancle</button> : ''}
-          {this.state.results ? <button type = "button" onClick={() => this.handleModelSave()} className="btn btn-primary">Save</button> : ''} 
-          {this.state.filename ? <button onClick={() => this.handleFileUpload()} className="button btn-success">{this.state.uploadStatus}</button> : ''}
+          <div style={{marginTop: 20, marginBottom: 50}}>
+          {this.state.filename ? <button style={{display: 'block', margin: 'auto', marginBottom: 20}} onClick={() => this.handleFileUpload()} className="button btn-success">{this.state.uploadStatus}</button> : ''}
+          {this.state.results ? <button type="button" style={{ marginRight: '20px', backgroundColor: '#E46B96', borderColor: '#E46B96' }} onClick={() => this.handleModelCancle()} className="btn btn-danger">Cancle</button> : ''}
+          {this.state.results ? <button type="button" style={{backgroundColor: '#4BB6A6', borderColor: '#4BB6A6'}} onClick={() => this.handleModelSave()} className="btn btn-primary">Save</button> : ''}
+          </div>
 
         </ShowUpload>
 

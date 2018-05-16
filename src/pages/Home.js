@@ -210,7 +210,7 @@ class Home extends Component {
                           <ul>
                           { !this.state.predictInfo.features ? 0 :
                               this.state.predictInfo.features.map(function(feature, index){
-                                return <li key={index} > {feature} </li>
+                                return <p key={index} > {feature} </p>
                               })
                           }    
                           </ul>
