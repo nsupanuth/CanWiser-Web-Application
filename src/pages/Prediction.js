@@ -442,7 +442,7 @@ class Prediction extends Component {
           <div className="modal-content">
             <div className="modal-header">
               <h4>Recommendation</h4>
-              <button type="button" onClick={() => {this.setState({recommends : [],proba : -1})}} className="close" data-dismiss="modal">&times;</button>
+              <button type="button" onClick={() => {this.setState({recommends : [],recommendCluster:[],proba : -1})}} className="close" data-dismiss="modal">&times;</button>
             </div>
             
             {this.state.proba == -1 ? <div style = {{margin:100}}>
@@ -480,7 +480,8 @@ class Prediction extends Component {
                       }
                       <td>
                         <ul>
-                        <li>{recommend.Gender}</li>
+                          <li>เพศ{recommend.Gender  == 1 ? 'ชาย' : 'หญิง'}</li>
+                          <li>ลองพิมพ์ภาษาไทย</li>
                           <li>{recommend.phy6_2_5_vs1}</li>
                           <li>{recommend.phy6_2_12_vs1}</li>
                           <li>{recommend.phy9_3_6_vs1}</li>
@@ -505,7 +506,7 @@ class Prediction extends Component {
                 <button type="button" className="btn btn-primary" onClick={() => this.SaveAsPDF()}>Save As PDF</button>
               }
               <button type="button" className="btn btn-danger" 
-                onClick={() => {this.setState({recommends : [],proba : -1})}} data-dismiss="modal">Close</button>
+                onClick={() => {this.setState({recommends : [],recommendCluster:[],proba : -1})}} data-dismiss="modal">Close</button>
             </div>
           
             </div>
