@@ -132,7 +132,7 @@ class Prediction extends Component {
         recommends : [...this.state.recommends,'รับประทานอาหารดิบๆให้น้อยลง','ควรออกกำลังกายอย่างสม่ำเสมอ','พักผ่อนให้เพียงพอ','อย่าลืมล้างมือก่อนรับประทานอาหาร']
       })
 
-      if(this.state.proba){
+      if(this.state.proba > 0){
         axios.post('http://localhost:3000/predict/test/clustering', {
           gender, age, height, weight,
           phy6_2_5_vs1, phy6_2_12_vs1, phy9_3_6_vs1, phy2_5_vs1, phy8_1_3_vs1, phy5_5_vs1,
@@ -481,13 +481,14 @@ class Prediction extends Component {
                       <td>
                         <ul>
                           <li>เพศ{recommend.Gender  == 1 ? 'ชาย' : 'หญิง'}</li>
-                          <li>ลองพิมพ์ภาษาไทย</li>
-                          <li>{recommend.phy6_2_5_vs1}</li>
-                          <li>{recommend.phy6_2_12_vs1}</li>
-                          <li>{recommend.phy9_3_6_vs1}</li>
-                          <li>{recommend.phy2_5_vs1}</li>
-                          <li>{recommend.phy8_1_3_vs1}</li>
-                          <li>{recommend.phy5_5_vs1}</li>
+                          <li>อายุ {recommend.Age} ปี</li>
+                          <li>BMI = {recommend.BMI} </li>
+                          <li>{recommend.phy6_2_5_vs1 == 1 ? 'เคยมีประวัติการเป็นโรคความดันโลหิตสูง' : 'ไม่เคยมีประวัติการเป็นโรคความดันโลหิตสูง'}</li>
+                          <li>{recommend.phy6_2_12_vs1 == 1 ? 'มีประวัติโรคตับ' : 'ไม่มีประวัติโรคตับ'}</li>
+                          <li>{recommend.phy9_3_6_vs1 == 1 ? 'มี' : 'ไม่มี'}ประวัติการเป็นโรคหัวใจ</li>
+                          <li>{recommend.phy2_5_vs1 == 1 ? 'เคย' : 'ไม่เคย'}สูบบุหรี่</li>
+                          <li>{recommend.phy8_1_3_vs1 == 1 ? 'เคย' : 'ไม่เคย'}ฉีดวัคซีนพิษสุนัขบ้า</li>
+                          <li>{recommend.phy5_5_vs1 == 1 ? 'เคย' : 'ไม่เคย'}ตั้งครรภ์</li>
                         </ul>
                       </td>
                     </tr>

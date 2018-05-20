@@ -170,17 +170,18 @@ class Home extends Component {
                 <thead class="thead-light">
                   <tr>
                     <th scope="col">Model Name</th>
-                    <th scope="col">F1</th>
                     <th scope="col">Accuracy</th>
-                    <th scope="col">Recall</th>
+                    <th scope="col">Sensitivity</th>
+                    <th scope="col">Specificity</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>{this.state.results.modelName}</td>
-                    <td>{this.state.results.f1.toFixed(2)}</td>
                     <td>{this.state.results.accuracy.toFixed(2)}</td>
-                    <td>{this.state.results.recall.toFixed(2)}</td>
+                    <td>{(this.state.results.confusion_matrix.tp/(this.state.results.confusion_matrix.tp+this.state.results.confusion_matrix.fn)).toFixed(2)}</td>
+                    <td>{(this.state.results.confusion_matrix.tn/(this.state.results.confusion_matrix.tn+this.state.results.confusion_matrix.fp)).toFixed(2)}</td>
+                    {/* <td>{this.state.results.recall.toFixed(2)}</td> */}
                   </tr>
                 </tbody>
               </table>
@@ -202,12 +203,12 @@ class Home extends Component {
                     </td>
                     <td class="col-xs-4">
                       <div id="true-positive" class="has-success" data-toggle="popover">
-                        <p>10</p>
+                        <p>TP = {this.state.results.confusion_matrix.tp}</p>
                       </div>
                     </td>
                     <td class="col-xs-4">
                       <div id="false-positive" class="has-warning" data-toggle="popover">
-                        <p>10</p>
+                        <p>FP = {this.state.results.confusion_matrix.fp}</p>
                       </div>
                     </td>
                   </tr>
@@ -217,12 +218,12 @@ class Home extends Component {
                     </td>
                     <td class="col-xs-4">
                       <div id="false-negative" class="has-warning" data-toggle="popover">
-                        <p>10</p>
+                        <p>FN = {this.state.results.confusion_matrix.fn}</p>
                       </div>
                     </td>
                     <td class="col-xs-4">
                       <div id="true-negative" class="has-success" data-toggle="popover">
-                        <p>10</p>
+                        <p>TN = {this.state.results.confusion_matrix.tn}</p>
                       </div>
                     </td>
                   </tr>
@@ -240,37 +241,37 @@ class Home extends Component {
                 <tbody>
                   <tr>
                     <td>Sensitivity</td>
-                    <td>100</td>
+                    <td>{(this.state.results.confusion_matrix.tp/(this.state.results.confusion_matrix.tp+this.state.results.confusion_matrix.fn)).toFixed(2)}</td>
                     <td>Sensitivity or True Positive Rate (TPR) </td>
                   </tr>
                   <tr>
                     <td>Specificity</td>
-                    <td>100</td>
+                    <td>{(this.state.results.confusion_matrix.tn/(this.state.results.confusion_matrix.tn+this.state.results.confusion_matrix.fp)).toFixed(2)}</td>
                     <td>Specificity (SPC) or True Negative Rate (TNR)  </td>
                   </tr>
                   <tr>
                     <td>Precision</td>
-                    <td>100</td>
+                    <td>{(this.state.results.confusion_matrix.tp/(this.state.results.confusion_matrix.tp+this.state.results.confusion_matrix.fp)).toFixed(2)}</td>
                     <td>Precision or Positive Predictive Value (PPV)</td>
                   </tr>
                   <tr>
                     <td>Negative Predictive Value </td>
-                    <td>100</td>
+                    <td>{(this.state.results.confusion_matrix.tn/(this.state.results.confusion_matrix.tn+this.state.results.confusion_matrix.fn)).toFixed(2)}</td>
                     <td>Negative Predictive Value (NPV) </td>
                   </tr>
                   <tr>
                     <td>False Positive Rate </td>
-                    <td>100</td>
+                    <td>{(this.state.results.confusion_matrix.fp/(this.state.results.confusion_matrix.fp+this.state.results.confusion_matrix.tn)).toFixed(2)}</td>
                     <td>Fall-out or False Positive Rate (FPR) </td>
                   </tr>
                   <tr>
                     <td>False Discovery Rate </td>
-                    <td>100</td>
+                    <td>{(this.state.results.confusion_matrix.fp/(this.state.results.confusion_matrix.fp+this.state.results.confusion_matrix.tp)).toFixed(2)}</td>
                     <td>False Discovery Rate (FDR)</td>
                   </tr>
                   <tr>
                     <td>False Negative Rate </td>
-                    <td>100</td>
+                    <td>{(this.state.results.confusion_matrix.fn/(this.state.results.confusion_matrix.fn+this.state.results.confusion_matrix.tp)).toFixed(2)}</td>
                     <td>Miss Rate or False Negative Rate (FNR) </td>
                   </tr>
                   <tr>
