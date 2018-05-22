@@ -74,6 +74,7 @@ class Home extends Component {
     filename: '',
     uploadStatus: 'Upload',
     results: '',
+    status : ''
   }
 
   handleFileChange() {
@@ -103,7 +104,8 @@ class Home extends Component {
         this.setState({
           results: res.data.results,
           uploadStatus: 'Upload',
-          filename: ''
+          filename: '',
+          status : res.data.status
         })
       })
   }
@@ -119,7 +121,8 @@ class Home extends Component {
       console.log(res.data.status)
       this.setState({
         filename : '',
-        results: ''
+        results: '',
+        status : ''
       })
 
     } catch (error) {
@@ -145,7 +148,8 @@ class Home extends Component {
       })
 
       this.setState({
-        results: ''
+        results: '',
+        status : ''
       })
 
 
@@ -157,6 +161,9 @@ class Home extends Component {
 
   render() {
 
+    console.log("Test Result from Upload")
+    console.log(this.state.results)
+
     return (
       <div>
         <ol className="breadcrumb">
@@ -165,7 +172,7 @@ class Home extends Component {
         <ShowUpload>
           <h1 style={this.state.results ? { marginTop: 10 } : { marginTop: 200 }}>{this.state.results ? '' : 'Upload Your Data Here !'}</h1>
 
-          {this.state.results ?
+          {this.state.status === 'success' ?
             <ShowScoreNew>
               <table class="table">
                 <thead class="thead-light">
@@ -296,6 +303,7 @@ class Home extends Component {
             </ShowScoreNew>
             : ''}
 
+   
           {/* {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.f1.toFixed(2) : ''}</p><p className="text">{this.state.results ? 'F1' : ''}</p></ShowScore> : ''}
           {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.accuracy.toFixed(2) : ''}</p><p className="text">{this.state.results ? 'Accuracy' : ''}</p></ShowScore> : ''}
           {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.recall.toFixed(2) : ''}</p><p className="text">{this.state.results ? 'Recall' : ''}</p></ShowScore> : ''}
@@ -304,6 +312,13 @@ class Home extends Component {
             <input ref="myFile" name="xxx" id="file" onChange={() => this.handleFileChange()} type="file" style={{ display: 'none' }} />
             <label htmlFor="file"><span style={{ marginTop: 100 }}>Choose a file</span></label> {this.state.filename}
           </form>
+
+          {this.state.status === 'Failed' &&
+            <div>
+              **Please upload only CSV format**
+            </div>
+          }
+
           <div style={{marginTop: 20, marginBottom: 50}}>
           {this.state.filename ? <button style={{display: 'block', margin: 'auto', marginBottom: 20}} onClick={() => this.handleFileUpload()} className="button btn-success">{this.state.uploadStatus}</button> : ''}
           {this.state.results ? <button type="button" style={{ marginRight: '20px', backgroundColor: '#E46B96', borderColor: '#E46B96' }} onClick={() => this.handleModelCancle()} className="btn btn-danger">Cancle</button> : ''}
