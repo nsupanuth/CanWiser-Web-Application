@@ -1,4 +1,4 @@
-const loginToken = (username,token,role) => {
+const loginToken = (username,token,role,picture) => {
     console.log("Login token on action.js")
     return (dispatch) => {
 
@@ -7,7 +7,8 @@ const loginToken = (username,token,role) => {
             payload : {
                 username : username,
                 token : token,
-                role : role
+                role : role,
+                picture : picture
             }
         })
     }

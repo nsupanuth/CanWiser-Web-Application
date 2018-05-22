@@ -118,6 +118,7 @@ class Home extends Component {
 
       console.log(res.data.status)
       this.setState({
+        filename : '',
         results: ''
       })
 
@@ -276,19 +277,19 @@ class Home extends Component {
                   </tr>
                   <tr>
                     <td>Accuracy </td>
-                    <td>100</td>
+                    <td>{this.state.results.accuracy.toFixed(2)} </td>
                     <td>Accuracy (ACC)  </td>
                   </tr>
                   <tr>
                     <td>F1 Score </td>
-                    <td>100</td>
+                    <td>{this.state.results.f1.toFixed(2)}</td>
                     <td>F1 Score (F1)  </td>
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <td>Matthews Correlation Coefficient </td>
                     <td>100</td>
                     <td>Matthews Correlation Coefficient (MCC) </td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </table>
 

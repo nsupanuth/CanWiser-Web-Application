@@ -64,7 +64,8 @@ class Login extends Component {
     username: '',
     password: '',
     token: '',
-    role: ''
+    role: '',
+    picture : ''
   }
 
   updateValue = (e) => {
@@ -92,8 +93,10 @@ class Login extends Component {
       localStorage.setItem("username",username)
       localStorage.setItem("token",this.state.token)
       localStorage.setItem("role",res.data.role)
+      localStorage.setItem("picture",res.data.picture)
 
-      await dispatch(loginToken(username, this.state.token, res.data.role))
+
+      await dispatch(loginToken(username, this.state.token, res.data.role,res.data.picture))
 
   
       /*

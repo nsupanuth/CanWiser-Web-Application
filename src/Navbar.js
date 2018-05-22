@@ -63,8 +63,10 @@ class Navbar extends Component {
           var username = localStorage.getItem('username')
           var token = localStorage.getItem('token')
           var role = localStorage.getItem('role')
-          
-          dispatch(loginToken(username, token, role))
+          var picture = localStorage.getItem('picture')
+
+          dispatch(loginToken(username,token,role,picture))
+
         }
   }
 
@@ -80,11 +82,10 @@ class Navbar extends Component {
             <ul className="navbar-nav navbar-sidenav" id="exampleAccordion">
 
             <li className="nav-item profile-img" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                {/* { this.props.role === 'Doctor' ?
-                  <img className="rounded-circle" alt="profile" src={Profile} /> :
-                  <img className="rounded-circle" alt="profile" src={UserProfile} />
-                } */}
-                <img className="rounded-circle" alt="profile" src={Profile} /> 
+              
+                <img className="rounded-circle" alt="profile" src={'http://localhost:3000/public/img/'+this.props.picture} /> 
+
+                {/* <img className="rounded-circle" alt="profile" src={Profile} />  */}
             </li>
 
             { ((this.props.role === 'Doctor') && (this.props.loginToken != '')) ?

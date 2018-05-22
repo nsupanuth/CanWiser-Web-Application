@@ -4,7 +4,8 @@ import  thunk from 'redux-thunk'
 const initialState = {
   loginToken : '',
   role : '',
-  username : ''
+  username : '',
+  picture : ''
 }
 
 const reducer = (state = initialState,action) => {
@@ -14,7 +15,8 @@ const reducer = (state = initialState,action) => {
           return { ...state, 
                     loginToken : action.payload.token,
                     username : action.payload.username,
-                    role : action.payload.role
+                    role : action.payload.role,
+                    picture : action.payload.picture
                  }                                        
   }   
 
