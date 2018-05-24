@@ -78,7 +78,7 @@ class Prediction extends Component {
 
     if(e.target.id === 'phy6_2_5_vs1' || e.target.id === 'smoke' || e.target.id === 'phy6_2_12_vs1' || e.target.id === 'phy9_3_6_vs1' ||
        e.target.id === 'phy2_5_vs1' || e.target.id === 'phy8_1_3_vs1' || e.target.id === 'phy5_5_vs1' )
-    { 
+    {
       e.target.value === 'เคย' ? value = 1 : value = 0;
     }
 
@@ -88,7 +88,7 @@ class Prediction extends Component {
   }
 
   handlePostForRecommend(){
-    
+
     const { recommend } = this.state
 
     const {patientNo,gender,age,height,weight,smoke,
@@ -96,11 +96,11 @@ class Prediction extends Component {
       alkPhosphatase,gammaGT,ALT,CEA,CA199} = this.state
 
     /**
-     * 
-     * Fixed Decision Tree --> http://localhost:3000/predict/test/cholan 
-     * 
+     *
+     * Fixed Decision Tree --> http://localhost:3000/predict/test/cholan
+     *
      * **/
-      
+
     axios.post('http://localhost:3000/predict/adaptive/cholan', {
       patientNo, gender, age, height, weight,
       phy6_2_5_vs1, phy6_2_12_vs1, phy9_3_6_vs1, phy2_5_vs1, phy8_1_3_vs1, phy5_5_vs1,
@@ -132,7 +132,7 @@ class Prediction extends Component {
         recommends : [...this.state.recommends,'รับประทานอาหารดิบๆให้น้อยลง','ควรออกกำลังกายอย่างสม่ำเสมอ','พักผ่อนให้เพียงพอ','อย่าลืมล้างมือก่อนรับประทานอาหาร']
       })
 
-      if(this.state.proba > 0){
+      if(this.state.proba >= 0){
         axios.post('http://localhost:3000/predict/test/clustering', {
           gender, age, height, weight,
           phy6_2_5_vs1, phy6_2_12_vs1, phy9_3_6_vs1, phy2_5_vs1, phy8_1_3_vs1, phy5_5_vs1,
@@ -143,7 +143,7 @@ class Prediction extends Component {
             this.setState({
               recommendCluster : res.data.results
             })
-            /* Test printing recommend cluster state value */ 
+            /* Test printing recommend cluster state value */
             console.log("Recommendation cluster")
             console.log(this.state.recommendCluster)
             console.log(this.state.recommendCluster[0])
@@ -154,7 +154,7 @@ class Prediction extends Component {
         })
 
       }
-      
+
       if(this.state.proba > 0.7){
         recommends : [...this.state.recommends,"ควรพบแพทย์หรือตรวจเพิ่มเติม"]
       }
@@ -432,19 +432,19 @@ class Prediction extends Component {
               className="btn btn-primary">
               Submit
           </button>
-          
+
         </form>
 
         {/* Modal */}
         <div className="modal fade" id="myModal" role="dialog">
         <div className="modal-dialog modal-lg">
-        
+
           <div className="modal-content">
             <div className="modal-header">
               <h4>Recommendation</h4>
               <button type="button" onClick={() => {this.setState({recommends : [],recommendCluster:[],proba : -1})}} className="close" data-dismiss="modal">&times;</button>
             </div>
-            
+
             {this.state.proba == -1 ? <div style = {{margin:100}}>
               <img src={require('../img/loading.gif')} />
             </div> :
@@ -452,7 +452,7 @@ class Prediction extends Component {
              <RecommendStyle>
 
              <div className="modal-body">
-               <p style={{fontSize: '20px'}}> <b>โอกาสเป็นมะเร็งท่อน้ำดี : { !this.state.proba == 0 ? (this.state.proba*100).toFixed(2) : 0}%  </b></p>                                                                                                                                                                                                                                                                                                                                                                                                     
+               <p style={{fontSize: '20px'}}> <b>โอกาสเป็นมะเร็งท่อน้ำดี : { !this.state.proba == 0 ? (this.state.proba*100).toFixed(2) : 0}%  </b></p>
 
                <ul style={{fontSize:'15px'}}>
                  {this.state.recommends.map(function(recommend, index){
@@ -461,7 +461,7 @@ class Prediction extends Component {
                    })}
                  {this.state.proba > 0.7 ? <div style={{color : 'red'}}>**ควรพบแพทย์หรือตรวจเพิ่มเติม**</div>: ''}
                </ul>
-                 <div style={{fontSize:'20px'}}>หมายเหตุ : เป็นแค่การวินิฉัยในเบื้องต้นจากการวิเคราะห์ข้อมูลทางสถิติเท่านั้น</div> 
+                 <div style={{fontSize:'20px'}}>หมายเหตุ : เป็นแค่การวินิฉัยในเบื้องต้นจากการวิเคราะห์ข้อมูลทางสถิติเท่านั้น</div>
 
                  <table class="table" style={{width: '80%', fontSize: 15, margin: 'auto'}}>
                   <thead class="thead-dark">
@@ -474,7 +474,7 @@ class Prediction extends Component {
                   <tbody>
                   {this.state.recommendCluster.map(function(recommend, index){
                     return <tr>
-                      <th scope="row"> {index} </th>
+                      <th scope="row"> {index+1} </th>
                       {recommend.Gender  == 1 ?  <img src={Boy} class="img-fluid" alt="Responsive image" width="30%"/>
                         : <img src={Girl} class="img-fluid" alt="Responsive image" width="30%"/>
                       }
@@ -488,7 +488,7 @@ class Prediction extends Component {
                           <li>{recommend.phy9_3_6_vs1 == 1 ? 'มี' : 'ไม่มี'}ประวัติการเป็นโรคหัวใจ</li>
                           <li>{recommend.phy2_5_vs1 == 1 ? 'เคย' : 'ไม่เคย'}สูบบุหรี่</li>
                           <li>{recommend.phy8_1_3_vs1 == 1 ? 'เคย' : 'ไม่เคย'}ฉีดวัคซีนพิษสุนัขบ้า</li>
-                          <li>{recommend.phy5_5_vs1 == 1 ? 'เคย' : 'ไม่เคย'}ตั้งครรภ์</li>
+                          {recommend.Gender == 2 && <li>{recommend.phy5_5_vs1 == 1 ? 'เคย' : 'ไม่เคย'}ตั้งครรภ์</li>}
                         </ul>
                       </td>
                     </tr>
@@ -497,24 +497,24 @@ class Prediction extends Component {
                   </tbody>
                 </table>
              </div>
-       
+
            </RecommendStyle>
 
-          }          
+          }
 
             <div className="modal-footer">
               { this.state.proba != -1 &&
                 <button type="button" className="btn btn-primary" onClick={() => this.SaveAsPDF()}>Save As PDF</button>
               }
-              <button type="button" className="btn btn-danger" 
+              <button type="button" className="btn btn-danger"
                 onClick={() => {this.setState({recommends : [],recommendCluster:[],proba : -1})}} data-dismiss="modal">Close</button>
             </div>
-          
+
             </div>
-            
+
           </div>
           </div>
-        </Wrapper>     
+        </Wrapper>
       </div>
 
     )

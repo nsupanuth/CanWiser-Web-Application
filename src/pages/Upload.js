@@ -181,6 +181,7 @@ class Home extends Component {
                     <th scope="col">Accuracy</th>
                     <th scope="col">Sensitivity</th>
                     <th scope="col">Specificity</th>
+                    <th scope="col">Features</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -189,6 +190,15 @@ class Home extends Component {
                     <td>{this.state.results.accuracy.toFixed(2)}</td>
                     <td>{(this.state.results.confusion_matrix.tp/(this.state.results.confusion_matrix.tp+this.state.results.confusion_matrix.fn)).toFixed(2)}</td>
                     <td>{(this.state.results.confusion_matrix.tn/(this.state.results.confusion_matrix.tn+this.state.results.confusion_matrix.fp)).toFixed(2)}</td>
+                    <td>
+                    <ul>
+                      {
+                          this.state.results.features.map(function(feature, index){
+                            return <p key={index} > {feature} </p>
+                          })
+                      }
+                      </ul>
+                    </td>
                     {/* <td>{this.state.results.recall.toFixed(2)}</td> */}
                   </tr>
                 </tbody>
@@ -303,7 +313,7 @@ class Home extends Component {
             </ShowScoreNew>
             : ''}
 
-   
+
           {/* {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.f1.toFixed(2) : ''}</p><p className="text">{this.state.results ? 'F1' : ''}</p></ShowScore> : ''}
           {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.accuracy.toFixed(2) : ''}</p><p className="text">{this.state.results ? 'Accuracy' : ''}</p></ShowScore> : ''}
           {this.state.results ? <ShowScore><p className="score">{this.state.results ? this.state.results.recall.toFixed(2) : ''}</p><p className="text">{this.state.results ? 'Recall' : ''}</p></ShowScore> : ''}
@@ -321,7 +331,7 @@ class Home extends Component {
 
           <div style={{marginTop: 20, marginBottom: 50}}>
           {this.state.filename ? <button style={{display: 'block', margin: 'auto', marginBottom: 20}} onClick={() => this.handleFileUpload()} className="button btn-success">{this.state.uploadStatus}</button> : ''}
-          {this.state.results ? <button type="button" style={{ marginRight: '20px', backgroundColor: '#E46B96', borderColor: '#E46B96' }} onClick={() => this.handleModelCancle()} className="btn btn-danger">Cancle</button> : ''}
+          {this.state.results ? <button type="button" style={{ marginRight: '20px', backgroundColor: '#E46B96', borderColor: '#E46B96' }} onClick={() => this.handleModelCancle()} className="btn btn-danger">Cancel</button> : ''}
           {this.state.results ? <button type="button" style={{backgroundColor: '#4BB6A6', borderColor: '#4BB6A6'}} onClick={() => this.handleModelSave()} className="btn btn-primary">Save</button> : ''}
           </div>
 

@@ -57,7 +57,6 @@ class Home extends Component {
         })
       })
 
-
       axios.get('http://localhost:3000/predict/info')
       .then(res => {
         this.setState({
